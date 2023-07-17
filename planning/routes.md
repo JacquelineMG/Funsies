@@ -1,7 +1,7 @@
 # Routes to Resources
 
-B: GET \
-R: GET \
-E: POST \
-A: POST \
-D: POST
+* Browse, GET - /to-do
+* Edit, POST - /to-do/:id
+* Add, POST - /to-do
+* Browse, GET - /category
+* Read, GET - /category/:id
