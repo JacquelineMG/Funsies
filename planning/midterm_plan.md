@@ -17,11 +17,16 @@
 ### User Stories || User Scenarios
 
 ### ERD
+
+#### Resources:
+
 - https://www.drawio.com/
 
 ### Routes
 
 ### Wireframes 
+
+#### Resources:
 
 - https://www.drawio.com/
 - https://www.figma.com/templates/wireframe-kits/
