@@ -13,6 +13,11 @@ router.get('/', (req, res) => {
 
 });
 
+// Get list by category
+router.get('/:category', (req, res) => {
+
+});
+
 
 // Add new item to list
 router.post('/', (req, res) => {
