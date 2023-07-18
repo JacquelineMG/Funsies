@@ -1,0 +1,22 @@
+@import "_variables";
+
+nav {
+  display: flex;
+  height: 120px;
+  width: 100%;
+  color: $text-color;
+  background-color: $primary;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+}
+
+#nav-links {
+  display: flex;
+  width: 40%;
+  padding-top: 3em;
+  justify-content: space-between;
+}
