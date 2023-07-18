@@ -25,7 +25,7 @@
 </head>
 
 <body>
-  <!-- Top nav bar (fixed) -->
+  <!-- Top Nav Bar -->
   <nav>
     <span>FUNSIES</span>
     <span id="nav-links">
@@ -36,6 +36,31 @@
       <a>🍭 ALL</a>
     </span>
   </nav>
+
+   <!-- Header -->
+  <header>
+    <h1>Page Title</h1>
+    <span>Show Completed</span>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Add Funsie Form -->
+    <section id="funsie-form">
+      <form method="POST" action="/to-do">
+        <label for="funsie-name"></label>
+        <input type="text" id="funsie-name" placeholder="Funsie Name">
+        <footer>
+          <button type="button">Cancel</button>
+          <button type="submit">Add Funsie</button>
+        </footer>
+      </form>
+    </section>
+
+    <!-- List of Funsies -->
+    <section id="funsie-list"></section>
+  </main>
+
 </body>
 
 </html>
