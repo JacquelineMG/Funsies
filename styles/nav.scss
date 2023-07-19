@@ -4,7 +4,6 @@ nav {
   display: flex;
   height: 120px;
   width: 100%;
-  color: $text-color;
   background-color: $primary;
   padding-left: 1.5em;
   padding-right: 1.5em;
@@ -14,9 +13,14 @@ nav {
   top: 0;
 }
 
+#logo {
+  font-family: $heading-font;
+}
+
 #nav-links {
   display: flex;
   width: 40%;
-  padding-top: 3em;
+  color: $text-light;
+  font-family: $text-font;
   justify-content: space-between;
 }
