@@ -15,6 +15,7 @@ router.get('/', (req, res) => {
 
 // Get list by category
 router.get('/:category', (req, res) => {
+  const category = req.params.category;
 
 });
 
@@ -26,6 +27,7 @@ router.post('/', (req, res) => {
 
 // Edit an item
 router.post('/:id', (req, res) => {
+  const itemID = req.params.id;
 
 });
 
