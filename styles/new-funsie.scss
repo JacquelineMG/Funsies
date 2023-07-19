@@ -1,0 +1,23 @@
+@import "_variables";
+
+#funsie-form {
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  font-family: $text-font;
+
+  a {
+    color: $primary;
+    font-family: $text-font;
+    font-size: 20px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary;
+    height: 200px;
+  }
+}
