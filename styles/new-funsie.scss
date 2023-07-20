@@ -19,15 +19,26 @@
     align-items: center;
     background-color: $primary;
     height: 200px;
+    border-radius: 15px;
+    border: 2px solid $text-light;
+    margin-top: 8px;
 
     input {
       color: $primary;
-      width: 80%;
+      width: 90%;
+      height: 55px;
+      border-radius: 15px;
+      border: 2px solid $text-light;
+      padding-left: 25px;
+    }
+
+    input:focus {
+      outline: none;
     }
 
     footer {
       display: flex;
-      width: 80%;
+      width: 90%;
       align-items: end;
       justify-content: end;
       padding-top: 1em;
@@ -35,10 +46,17 @@
       button {
         color: $text-light;
         border-radius: 25px;
-        border: 2px solid $text-light;
+        border: 3px solid $text-light;
         background-color: $primary;
         margin-left: 1em;
         font-size: 15px;
+        padding: 10px 15px;
+        width: 120px;
+      }
+
+      button:hover {
+        color: $primary;
+        background-color: $text-light;
       }
     }
   }
