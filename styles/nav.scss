@@ -1,13 +1,12 @@
 @import "_variables";
 
-// mixin below is an alternative to outline the text for the logo - the stroke in css is not clean
-
 /*
+// mixin below is an alternative to outline the text for the logo - the stroke in css is not clean (will need to use data-letter instead)
 @mixin stroke($content, $translate: 3px) {
   display: inline-block;
   // targeting the before and after elements
   &::after {
-    -webkit-text-stroke: 2px $background;
+    -webkit-text-stroke: 2px $text-light;
     color: transparent;
     letter-spacing: -15px;
     content: $content;
@@ -72,7 +71,8 @@ nav {
 
   a {
     text-decoration: none;
-    padding: 1em;
+    padding: 0.5em;
+    margin-right: 1em;
     color: $text-light;
     line-height: 40px;
     font-family: $text-font;
