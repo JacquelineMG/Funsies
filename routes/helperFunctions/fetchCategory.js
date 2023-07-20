@@ -1,10 +1,11 @@
 'use strict';
 
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') })
+
 const fetch = require('node-fetch');
 
 // OpenAIApi configuration
-// Adapted from https://platform.openai.com/docs/quickstart
-
 
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
@@ -14,7 +15,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-const apiKey = `ADD KEY`;
+const apiKey = `${process.env.OPENAI_API_KEY}`;
 
 
 const generatePropmt = function(i) {
@@ -34,7 +35,7 @@ const categorizeItem = async function(item) {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `${apiKey}`,
+      Authorization: `Bearer ${apiKey}`,
     },
   }
   try {
@@ -50,31 +51,31 @@ const categorizeItem = async function(item) {
 
 
 // Use response from openai to assign a category id to user input
+// Change returns to category_id or other that works better with DB
 
-const getCatId = function(input) {
-  categorizeItem(input)
-    .then((result) => {
-      console.log(result)
-      if(result.includes("Movie" || "Television")) {
-        console.log("To Watch");
-      } else if(result.includes("Restaurant")) {
-        console.log("To Eat");
-      } else if(result.includes("Book")) {
-        console.log("To Read");
-      } else if(result.includes("Product")) {
-        console.log("To Buy");
-      } else {
-        console.log("Uncategorized");
-      }
-    })
-  .catch((error) => console.error(error));
+const getCatId = async function(input) {
+  try {
+    const result = await categorizeItem(input)
+    if(result.includes("Movie" || "Television")) {
+      return "To Watch";
+    } else if(result.includes("Restaurant")) {
+      return "To Eat";
+    } else if(result.includes("Book")) {
+      return "To Read";
+    } else if(result.includes("Product")) {  // could change to get rid of uncategorized and include all uncategorized items in product
+      return "To Buy";
+    } else {
+      return "Uncategorized";
+    }
+  } catch (error) {
+    console.error(error);
+  }
 };
 
-getCatId("Harry Potter")
 
+// Use Example
 
-
-
+getCatId("pillows").then((id) => {console.log(id)})
 
 
 module.exports = { getCatId };
