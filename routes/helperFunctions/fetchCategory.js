@@ -14,7 +14,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-const apiKey = "Bearer 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";
+const apiKey = `ADD KEY`;
 
 
 const generatePropmt = function(i) {
