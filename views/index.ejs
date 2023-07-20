@@ -21,6 +21,9 @@
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
   <link rel="stylesheet" href="/styles/nav.css" />
+  <link rel="stylesheet" href="/styles/header.css" />
+  <link rel="stylesheet" href="/styles/new-funsie.css" />
+  <link rel="stylesheet" href="/styles/funsie-list.css" />
 
   <!-- External JS -->
   <script src="/vendor/jquery-3.0.0.js"></script>
@@ -43,28 +46,74 @@
   </nav>
 
    <!-- Header -->
-  <header>
-    <h1>Page Title</h1>
-    <span>Show Completed</span>
-  </header>
-
-  <!-- Main Content -->
-  <main>
-    <!-- Add Funsie Form -->
-    <section id="funsie-form">
-      <form method="POST" action="/to-do">
-        <label for="funsie-name"></label>
-        <input type="text" id="funsie-name" placeholder="Funsie Name">
-        <footer>
-          <button type="button">Cancel</button>
-          <button type="submit">Add Funsie</button>
-        </footer>
+  <div id="layout">
+    <header>
+      <h1>My List</h1>
+      <form method="POST" action="/to-do/completed">
+        <label for="show-completed">SHOW COMPLETED</label>
+        <input type="checkbox" id="show-completed">
       </form>
-    </section>
+    </header>
 
-    <!-- List of Funsies -->
-    <section id="funsie-list"></section>
-  </main>
+    <!-- Main Content -->
+    <main>
+      <!-- Add Funsie Form -->
+      <div id="funsie-form">
+        <a>+ Add Funsie</a>
+        <form method="POST" action="/to-do">
+          <label for="funsie-name"></label>
+          <input type="text" id="funsie-name" placeholder="Funsie Name">
+          <footer>
+            <button type="button">Cancel</button>
+            <button type="submit">Add</button>
+          </footer>
+        </form>
+      </div>
+
+      <!-- List of Funsies -->
+      <section id="funsie-list">
+        <h2>🍭 ALL</h2>
+        <form method="POST" action="/to-do/:id">
+          <fieldset id="1">
+            <span>
+              <input type="checkbox" id="1-checkbox">
+              <label for="1-checkbox">Forrest Gump</label>
+            </span>
+            <select name="categories" id="1-categories">
+              <option value="watch" class="watch" selected>📺 WATCH</option>
+              <option value="read" class="read">📖 READ</option>
+              <option value="eat" class="eat">🍽️ EAT</option>
+              <option value="buy" class="buy">💰 BUY</option>
+            </select>
+          </fieldset>
+          <fieldset id="2">
+            <span>
+              <input type="checkbox" id="2-checkbox">
+              <label for="2-checkbox">Standing Desk</label>
+            </span>
+            <select name="categories" id="2-categories">
+              <option value="watch" class="watch">📺 WATCH</option>
+              <option value="read" class="read">📖 READ</option>
+              <option value="eat" class="eat">🍽️ EAT</option>
+              <option value="buy" class="buy" selected>💰 BUY</option>
+            </select>
+          </fieldset>
+          <fieldset id="3">
+            <span>
+              <input type="checkbox" id="3-checkbox">
+              <label for="3-checkbox">The Four Agreements</label>
+            </span>
+            <select name="categories" id="3-categories">
+              <option value="watch" class="watch">📺 WATCH</option>
+              <option value="read" class="read" selected>📖 READ</option>
+              <option value="eat" class="eat">🍽️ EAT</option>
+              <option value="buy" class="buy">💰 BUY</option>
+            </select>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+  </div>
 
 </body>
 
