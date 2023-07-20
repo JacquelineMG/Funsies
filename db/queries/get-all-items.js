@@ -1,6 +1,6 @@
 const db = require('../connection');
 
-const getAllItems = (db) => {
+const getAllItems = () => {
   const queryString = `
     SELECT items.title, category_name, items.created_date, is_done
     FROM items
@@ -10,7 +10,6 @@ const getAllItems = (db) => {
   return db
     .query(queryString)
     .then(data => {
-      console.log(data.rows);
       return data.rows;
     })
     .catch((err) => {
