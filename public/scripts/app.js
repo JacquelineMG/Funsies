@@ -13,7 +13,7 @@ $(document).ready(function() {
       <fieldset id="${items.id}">
       <span>
         <input type="checkbox" id="${items.id}-checkbox">
-        <label for="${items.id}-checkbox">Forrest Gump</label>
+        <label for="${items.id}-checkbox">${items.title}</label>
       </span>
       <select name="categories" id="${items.id}-categories">
       `;
