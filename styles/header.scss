@@ -14,10 +14,21 @@ header {
     margin: 0;
   }
 
-  span {
+  form {
     font-family: $text-font;
     font-size: 20px;
     color: $primary;
     padding-bottom: 10px;
+
+    label {
+      padding-right: 5px;
+    }
+
+    input {
+      width: 16px;
+      height: 16px;
+      margin-right: 1em;
+      accent-color: $heading-color;
+    }
   }
 }

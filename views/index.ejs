@@ -48,7 +48,10 @@
   <div id="layout">
     <header>
       <h1>My List</h1>
-      <span>SHOW COMPLETED</span>
+      <form method="POST" action="/to-do/completed">
+        <label for="show-completed">SHOW COMPLETED</label>
+        <input type="checkbox" id="show-completed">
+      </form>
     </header>
 
     <!-- Main Content -->
