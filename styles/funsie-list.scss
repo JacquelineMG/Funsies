@@ -25,11 +25,14 @@
       label {
         font-family: $text-font;
         font-size: 20px;
-        padding-left: 10px;
+        padding-left: 1.2em;
       }
 
       select {
         outline: none;
+        border-radius: 15px;
+        width: 150px;
+        text-align-last: center;
       }
     }
   }
