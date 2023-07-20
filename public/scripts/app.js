@@ -66,7 +66,13 @@ $(document).ready(function() {
    * @param {array} funsies - Array of funsie objects.
   */
   const renderFunsies = function(funsies) {
+    // Empty list to not reduplicate data
+    $('#funsies-container').empty();
 
+    for (const funsie of funsies) {
+      const $funsie = createFunsieElement(funsie);
+      $('#funsies-container').append($funsie);
+    }
   };
 
   /** Load funsies after successful AJAX request */
