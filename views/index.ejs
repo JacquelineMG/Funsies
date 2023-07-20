@@ -2,23 +2,127 @@
 <html lang="en">
 
 <head>
+  <!-- Meta Information -->
   <title>Home Page</title>
-
   <meta charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <meta name="viewport" content="width=device-width, initial-scale=1.0" >
 
+   <!-- External CSS -->
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
+
+  <!-- External Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chivo&family=Shrikhand&display=swap" rel="stylesheet">
+
+  <!-- App CSS -->
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
+  <link rel="stylesheet" href="/styles/nav.css" />
+  <link rel="stylesheet" href="/styles/header.css" />
+  <link rel="stylesheet" href="/styles/new-funsie.css" />
+  <link rel="stylesheet" href="/styles/funsie-list.css" />
 
+  <!-- External JS -->
   <script src="/vendor/jquery-3.0.0.js"></script>
+
+  <!-- App JS -->
   <script defer src="/scripts/app.js"></script>
 </head>
 
 <body>
-  <h1>Have fun! 🥔</h1>
+  <!-- Top Nav Bar -->
+  <nav>
+    <div class="logo" id="logo">
+    <span class="c1" data-letter="F">F</span>
+    <span class="c2" data-letter="u">u</span>
+    <span class="c3" data-letter="n">n</span>
+    <span class="c2" data-letter="s">s</span>
+    <span class="c3" data-letter="i">i</span>
+    <span class="c4" data-letter="e">e</span>
+    <span class="c1" data-letter="s">s</span>
+    </div>
+    <span id="nav-links">
+      <a href="/watch">📺 WATCH</a>
+      <a href="/read">📖 READ</a>
+      <a href="/eat">🍽️ EAT</a>
+      <a href="/buy">💰 BUY</a>
+      <a href="/">🍭 ALL</a>
+    </span>
+  </nav>
+
+   <!-- Header -->
+  <div id="layout">
+    <header>
+      <h1>My List</h1>
+      <form method="POST" action="/to-do/completed">
+        <label for="show-completed">SHOW COMPLETED</label>
+        <input type="checkbox" id="show-completed">
+      </form>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Add Funsie Form -->
+      <div id="funsie-form">
+        <a>+ Add Funsie</a>
+        <form method="POST" action="/to-do">
+          <label for="funsie-name"></label>
+          <input type="text" id="funsie-name" placeholder="Funsie Name">
+          <footer>
+            <button type="button">Cancel</button>
+            <button type="submit">Add</button>
+          </footer>
+        </form>
+      </div>
+
+      <!-- List of Funsies -->
+      <section id="funsie-list">
+        <h2>🍭 ALL</h2>
+        <form method="POST" action="/to-do/:id">
+          <fieldset id="1">
+            <span>
+              <input type="checkbox" id="1-checkbox">
+              <label for="1-checkbox">Forrest Gump</label>
+            </span>
+            <select name="categories" id="1-categories">
+              <option value="watch" class="watch" selected>📺 WATCH</option>
+              <option value="read" class="read">📖 READ</option>
+              <option value="eat" class="eat">🍽️ EAT</option>
+              <option value="buy" class="buy">💰 BUY</option>
+            </select>
+          </fieldset>
+          <fieldset id="2">
+            <span>
+              <input type="checkbox" id="2-checkbox">
+              <label for="2-checkbox">Standing Desk</label>
+            </span>
+            <select name="categories" id="2-categories">
+              <option value="watch" class="watch">📺 WATCH</option>
+              <option value="read" class="read">📖 READ</option>
+              <option value="eat" class="eat">🍽️ EAT</option>
+              <option value="buy" class="buy" selected>💰 BUY</option>
+            </select>
+          </fieldset>
+          <fieldset id="3">
+            <span>
+              <input type="checkbox" id="3-checkbox">
+              <label for="3-checkbox">The Four Agreements</label>
+            </span>
+            <select name="categories" id="3-categories">
+              <option value="watch" class="watch">📺 WATCH</option>
+              <option value="read" class="read" selected>📖 READ</option>
+              <option value="eat" class="eat">🍽️ EAT</option>
+              <option value="buy" class="buy">💰 BUY</option>
+            </select>
+          </fieldset>
+        </form>
+      </section>
+    </main>
+  </div>
+
 </body>
 
 </html>
