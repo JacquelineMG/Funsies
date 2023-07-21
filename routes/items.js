@@ -10,11 +10,11 @@ const router = express.Router();
 const itemsQueries = require('../db/queries/get-all-items');
 
 // get all items
-router.get("/items", (req, res) => {
+router.get("/", (req, res) => {
   itemsQueries
     .getAllItems(req.query)
     .then(items => {
-      console.log(items);
+      res.send(items);
     })
     .catch((e) => {
       console.log(e);
