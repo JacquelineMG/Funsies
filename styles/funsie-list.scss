@@ -1,0 +1,39 @@
+@import "_variables";
+
+#funsie-list {
+  h2 {
+    color: $heading-color;
+    font-family: $heading-font;
+    font-size: 44px;
+    margin-bottom: 0px;
+  }
+
+  form {
+    width: 90%;
+
+    fieldset {
+      border: none;
+      display: flex;
+      justify-content: space-between;
+
+      input {
+        outline: none;
+        accent-color: $heading-color;
+        margin-left: 2em;
+      }
+
+      label {
+        font-family: $text-font;
+        font-size: 20px;
+        padding-left: 1.2em;
+      }
+
+      select {
+        outline: none;
+        border-radius: 15px;
+        width: 150px;
+        text-align-last: center;
+      }
+    }
+  }
+}

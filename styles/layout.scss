@@ -1,6 +1,7 @@
-// See: https://sass-lang.com/
+@import "_variables";
 
 body,
 html {
   margin: 0;
+  background-color: $background;
 }
