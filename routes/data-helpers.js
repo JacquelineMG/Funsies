@@ -1,20 +1,42 @@
-const db = require("../db/connection");
+const db = require('../db/connection.js');
 
 // gets all items from database
-const getAllItems = () => {
+const getAllItems = function() {
   const queryString = `
-    SELECT items.title, category_name, items.created_date, is_done
-    FROM items
-    LEFT JOIN categories ON categories.id = items.category_id
+    SELECT * FROM items
     ORDER BY created_date;
     `;
   return db
     .query(queryString)
     .then(data => {
+      if (!data.rows.length) {
+        return null;
+      }
       return data.rows;
     })
     .catch((err) => {
-      console.log(err);
+      console.error(err);
+    });
+};
+
+// get list by category
+const getListByCategory = function(categoryId) {
+  const queryString = `
+  SELECT * FROM items
+  WHERE category_id = $1
+  ORDER BY created_date;
+  `;
+  const values = [categoryId];
+  return db
+    .query(queryString, values)
+    .then((data) => {
+      if (!data.rows.length) {
+        return null;
+      }
+      return data.rows;
+    })
+    .catch((err) => {
+      console.error(err);
     });
 };
 
@@ -81,6 +103,7 @@ const deleteTask = (itemId, db) => {
 
 module.exports = {
   getAllItems,
+  getListByCategory,
   addNewItem,
   editItemCategory,
   deleteTask
