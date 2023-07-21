@@ -5,6 +5,6 @@ const getUsers = () => {
     .then(data => {
       return data.rows;
     });
-};
+}; 
 
 module.exports = { getUsers };

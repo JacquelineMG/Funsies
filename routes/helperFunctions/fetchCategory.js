@@ -1,7 +1,7 @@
 'use strict';
 
-const path = require('path')
-require('dotenv').config({ path: path.resolve(__dirname, '../../.env') })
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 
 const fetch = require('node-fetch');
 
@@ -28,7 +28,7 @@ const generatePropmt = function(i) {
 // Use openai to categorize user input
 
 const categorizeItem = async function(item) {
-  let resultTrim = [];
+
   const url = `https://api.openai.com/v1/completions`;
   const options = {
     body: JSON.stringify({"model": "text-davinci-003", "prompt": generatePropmt(item), "temperature": 0, "max_tokens": 7}),
@@ -37,13 +37,20 @@ const categorizeItem = async function(item) {
       "Content-Type": "application/json",
       Authorization: `Bearer ${apiKey}`,
     },
-  }
+  };
+
   try {
     const response = await fetch(url, options);
     const results = await response.json();
-    const result = results.choices[0].text
-    resultTrim = result.trim().split(' ');
-    return resultTrim;
+    if (!results.id) {
+      const result = 'undefined';
+      return result;
+    } else {
+      const result = await results.choices[0].text;
+      const resultTrim = result.trim().split(' ');
+      return resultTrim;
+    }
+
   } catch (error) {
     console.error(error);
   }
@@ -55,14 +62,16 @@ const categorizeItem = async function(item) {
 
 const getCatId = async function(input) {
   try {
-    const result = await categorizeItem(input)
-    if(result.includes("Movie" || "Television")) {
+    const result = await categorizeItem(input);
+    if (result.includes("Movie")) {
       return "To Watch";
-    } else if(result.includes("Restaurant")) {
+    } else if (result.includes("Television")) {
+      return "To Watch";
+    } else if (result.includes("Restaurant")) {
       return "To Eat";
-    } else if(result.includes("Book")) {
+    } else if (result.includes("Book")) {
       return "To Read";
-    } else if(result.includes("Product")) {  // could change to get rid of uncategorized and include all uncategorized items in product
+    } else if (result.includes("Product")) {  // could change to get rid of uncategorized and include all uncategorized items in product
       return "To Buy";
     } else {
       return "Uncategorized";
@@ -75,7 +84,10 @@ const getCatId = async function(input) {
 
 // Use Example
 
-getCatId("pillows").then((id) => {console.log(id)})
+// getCatId("Harry Potter and the Goblet of Fire")
+//   .then((id) => {
+//     console.log(id);
+//   });
 
 
 module.exports = { getCatId };
