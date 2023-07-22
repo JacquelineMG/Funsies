@@ -2,8 +2,8 @@
 /* eslint-disable no-undef */
 
 $(document).ready(function() {
-  let allFunsies = [];
-  let filteredFunsies = [];
+  let allFunsies;
+  let filteredFunsies;
 
   /**
    * Create individual funsie element (checkbox, name, & select category)
@@ -83,6 +83,11 @@ $(document).ready(function() {
       type: 'GET',
       url: 'http://localhost:8080/api/items'
     }).then(function(data) {
+      if (!allFunsies) {
+        allFunsies = data;
+      }
+      console.log(data);
+      console.log(allFunsies);
       renderFunsies(data);
     });
   };
@@ -90,15 +95,12 @@ $(document).ready(function() {
   // Initial funsies on page-load
   loadFunsies();
 
-
   // Change background colour on drop down box to match selected value's colour
   // Won't work without ids on drop down boxes, so probably not a long-term solution
   for (let i = 1; i < 100; i++) {
     let count = i;
     let categories = `${count}-categories`;
     const category = ($(`#${categories}`).val());
-    console.log(categories);
-    console.log(category);
     $(`#${categories}`).removeClass().addClass(`colour${category}`);
 
     $(`#${categories}`).on("change", function() {
@@ -108,5 +110,4 @@ $(document).ready(function() {
       $(`#${categories}`).removeClass().addClass(`colour${cat}`);
     });
   }
-
 });
