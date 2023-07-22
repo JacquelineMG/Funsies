@@ -63,7 +63,7 @@ $(document).ready(function() {
 
   /**
    * Loop through all funsies to create a list of all elements
-   * @param {array} funsies - Array of funsie objects.
+   * @param {array} funsies - Array of funsie objects
   */
   const renderFunsies = function(funsies) {
     // Empty list to not reduplicate data
@@ -74,6 +74,9 @@ $(document).ready(function() {
       $('#funsies-container').append($funsie);
     }
   };
+
+  let allFunsies = [];
+  let filteredArray = [];
 
   /** Load funsies after successful AJAX request */
   const loadFunsies = function() {
