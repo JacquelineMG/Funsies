@@ -2,6 +2,8 @@
 /* eslint-disable no-undef */
 
 $(document).ready(function() {
+  let allFunsies = [];
+  let filteredFunsies = [];
 
   /**
    * Create individual funsie element (checkbox, name, & select category)
@@ -10,15 +12,15 @@ $(document).ready(function() {
   */
   const createFunsieElement = function(funsie) {
     let element = `
-      <fieldset id="${items.id}">
+      <fieldset id="${funsie.id}">
       <span>
-        <input type="checkbox" id="${items.id}-checkbox">
-        <label for="${items.id}-checkbox">${items.title}</label>
+        <input type="checkbox" id="${funsie.id}-checkbox">
+        <label for="${funsie.id}-checkbox">${funsie.title}</label>
       </span>
-      <select name="categories" id="${items.id}-categories">
+      <select name="categories" id="${funsie.id}-categories">
       `;
 
-    switch (items.category_id) {
+    switch (funsie.category_id) {
       case 1:
         element += `
           <option value="watch" class="watch" selected>📺 WATCH</option>
@@ -75,12 +77,14 @@ $(document).ready(function() {
     }
   };
 
-  let allFunsies = [];
-  let filteredArray = [];
-
   /** Load funsies after successful AJAX request */
   const loadFunsies = function() {
-
+    $.ajax({
+      type: 'GET',
+      url: 'http://localhost:8080/api/items'
+    }).then(function(data) {
+      renderFunsies(data);
+    });
   };
 
   // Initial funsies on page-load
