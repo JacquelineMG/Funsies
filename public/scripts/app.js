@@ -83,17 +83,38 @@ $(document).ready(function() {
       type: 'GET',
       url: 'http://localhost:8080/api/items'
     }).then(function(data) {
+      // Save default to apply different filters
       if (!allFunsies) {
         allFunsies = data;
       }
-      console.log(data);
-      console.log(allFunsies);
+
       renderFunsies(data);
     });
   };
 
+  /**
+   * Filter list and return funsies only of a specific category
+   * @param {array} funsies - Array of funsie objects
+   * @param {number} category - Number from 1-4 representing a category id
+   * @return {array} filteredFunsies - Filtered array of funsie objects
+  */
+  const filterByCategory = function(funsies, category) {
+    let filteredFunsies = [];
+
+    return filteredFunsies;
+  };
+
   // Initial funsies on page-load
   loadFunsies();
+
+  // FILTERS
+  $('#nav-1').on('click', function(event) {
+    event.preventDefault();
+    console.log('success!');
+
+    filteredFunsies = filterByCategory(allFunsies, 1);
+    renderFunsies(filteredFunsies);
+  });
 
   // Change background colour on drop down box to match selected value's colour
   // Won't work without ids on drop down boxes, so probably not a long-term solution
