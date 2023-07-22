@@ -33,6 +33,39 @@
         border-radius: 15px;
         width: 150px;
         text-align-last: center;
+        background-color: white;
+      }
+
+      select option[value="watch"] {
+        background: $watch;
+      }
+
+      select option[value="read"] {
+        background: $read;
+      }
+
+      select option[value="eat"] {
+        background: $eat;
+      }
+
+      select option[value="buy"] {
+        background: $buy;
+      }
+
+      .colourwatch {
+        background-color: $watch;
+      }
+
+      .colourread {
+        background-color: $read;
+      }
+
+      .coloureat {
+        background-color: $eat;
+      }
+
+      .colourbuy {
+        background-color: $buy;
       }
     }
   }
