@@ -116,26 +116,36 @@ $(document).ready(function() {
    * @param {array} funsies - Array of funsie objects
    * @return {object} completionStatus - Object with two properties, each containing one array
   */
-  const sortByCompletion = function(funsies) {
-    const completionStatus = {
-      completed: [],
-      uncompleted: []
-    };
+  // const sortByCompletion = function(funsies) {
+  //   const completionStatus = {
+  //     completed: [],
+  //     uncompleted: []
+  //   };
 
-    for (const funsie of funsies) {
-      if (funsie.is_done) {
-        completionStatus[completed].push(funsie);
-      } else {
-        completionStatus[uncompleted].push(funsie);
-      }
-    }
+  //   for (const funsie of funsies) {
+  //     if (funsie.is_done) {
+  //       completionStatus[completed].push(funsie);
+  //     } else {
+  //       completionStatus[uncompleted].push(funsie);
+  //     }
+  //   }
 
-    return completionStatus;
-  };
+  //   return completionStatus;
+  // };
 
-  const sortByRecency = function(funsies) {
+  // /**
+  //  * Sorts funsies by most recent to least recent
+  //  * Helper function to @func sortFunsies
+  //  * @param {array} funsies - Array of funsie objects
+  //  * @return {array} sorted - Array of funsie objects, sorted by recency
+  // */
+  // const sortByRecency = function(funsies) {
+  //   const sorted = [];
 
-  };
+  //   if ()
+
+  //   return sorted;
+  // };
 
 
   /**
@@ -147,16 +157,44 @@ $(document).ready(function() {
   */
   const sortFunsies = function(funsies) {
     // Seperate completed vs. uncompleted funsies
-    const sortedByCompletion = sortByCompletion(funsies);
-    const completed = sortedByCompletion.completed;
-    const uncompleted = sortedByCompletion.uncompleted;
+    // const sortedByCompletion = sortByCompletion(funsies);
+    // const completed = sortedByCompletion.completed;
+    // const uncompleted = sortedByCompletion.uncompleted;
 
     // Sort each list of funsies by recency
-    const sortedCompleted = sortByRecency(completed);
-    const sortedUncompleted = sortByRecency(uncompleted);
+    const compareFn = function(a, b) {
+      // a is complete, b is uncompleted, so a is less than b
+      if (a.is_done > b.is_done) {
+        return -1;
+      }
 
-    // Amalgamate the two sorted lists together
-    const sortedFunsies = [...sortedCompleted, ...sortedUncompleted];
+      // b is complete, a is uncompleted, so b is less than a
+      if (b.is_done > a.is_done) {
+        return 1;
+      }
+
+      // both a and b are completed / uncompleted
+      // a was created before b, so b is less than a
+      if (a.created_date > b.created_date) {
+        return 1;
+      }
+
+      // both a and b are completed / uncompleted
+      // b was created before a, so a is less than b
+      if (b.created_date > a.created_date) {
+        return -1;
+      }
+
+      // both created simultaneously and both complete/incomplete, so they are equal
+      return 0;
+    };
+
+    const sortedFunsies = funsies.sort(compareFn);
+    // const sortedCompleted = completed.sort(compareFn);
+    // const sortedUncompleted = sortByRecency(uncompleted);
+
+    // // Amalgamate the two sorted lists together
+    // const sortedFunsies = [...sortedCompleted, ...sortedUncompleted];
 
     return sortedFunsies;
   };
