@@ -5,44 +5,44 @@ $(document).ready(function() {
   let allFunsies;
   let filteredFunsies;
 
-    /**
+  /**
    * Sort funsies by two criteria:
    *  1. Most recent to least recent
    *  2. Completed funsies at bottom
    * @param {array} funsies - Array of funsie objects
    * @return {array} sortedFunsies - Sorted array of funsie objects
   */
-    const sortFunsies = function(funsies) {
-      const compareFn = function(a, b) {
-        // a is complete, b is uncompleted, so a is less than b
-        if (a.is_done > b.is_done) {
-          return -1;
-        }
+  const sortFunsies = function(funsies) {
+    const compareFn = function(a, b) {
+      // a is complete, b is uncompleted, so a is less than b
+      if (a.is_done > b.is_done) {
+        return -1;
+      }
 
-        // b is complete, a is uncompleted, so b is less than a
-        if (b.is_done > a.is_done) {
-          return 1;
-        }
+      // b is complete, a is uncompleted, so b is less than a
+      if (b.is_done > a.is_done) {
+        return 1;
+      }
 
-        // both a and b are completed / uncompleted
-        // a was created before b, so b is less than a
-        if (a.created_date > b.created_date) {
-          return 1;
-        }
+      // both a and b are completed / uncompleted
+      // a was created before b, so b is less than a
+      if (a.created_date > b.created_date) {
+        return 1;
+      }
 
-        // both a and b are completed / uncompleted
-        // b was created before a, so a is less than b
-        if (b.created_date > a.created_date) {
-          return -1;
-        }
+      // both a and b are completed / uncompleted
+      // b was created before a, so a is less than b
+      if (b.created_date > a.created_date) {
+        return -1;
+      }
 
-        // both created simultaneously and both complete/incomplete, so they are equal
-        return 0;
-      };
-
-      const sortedFunsies = funsies.sort(compareFn);
-      return sortedFunsies;
+      // both created simultaneously and both complete/incomplete, so they are equal
+      return 0;
     };
+
+    const sortedFunsies = funsies.sort(compareFn);
+    return sortedFunsies;
+  };
 
   /**
    * Create individual funsie element (checkbox, name, & select category)
