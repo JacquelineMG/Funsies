@@ -110,8 +110,27 @@ $(document).ready(function() {
     return filteredFunsies;
   };
 
+  /**
+   * Sorts funsies into an object of two arrays: completed vs. uncompleted
+   * Helper function to @func sortFunsies
+   * @param {array} funsies - Array of funsie objects
+   * @return {object} completionStatus - Object with two properties, each containing one array
+  */
   const sortByCompletion = function(funsies) {
+    const completionStatus = {
+      completed: [],
+      uncompleted: []
+    };
 
+    for (const funsie of funsies) {
+      if (funsie.is_done) {
+        completionStatus[completed].push(funsie);
+      } else {
+        completionStatus[uncompleted].push(funsie);
+      }
+    }
+
+    return completionStatus;
   };
 
   const sortByRecency = function(funsies) {
@@ -137,7 +156,7 @@ $(document).ready(function() {
     const sortedUncompleted = sortByRecency(uncompleted);
 
     // Amalgamate the two sorted lists together
-    sortedFunsies = [...sortedCompleted, ...sortedUncompleted];
+    const sortedFunsies = [...sortedCompleted, ...sortedUncompleted];
 
     return sortedFunsies;
   };
