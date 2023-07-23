@@ -101,6 +101,12 @@ $(document).ready(function() {
   const filterByCategory = function(funsies, category) {
     let filteredFunsies = [];
 
+    for (const funsie of funsies) {
+      if (funsie.category_id === category) {
+        filteredFunsies.push(funsie);
+      }
+    }
+
     return filteredFunsies;
   };
 
@@ -108,11 +114,27 @@ $(document).ready(function() {
   loadFunsies();
 
   // FILTERS
-  $('#nav-1').on('click', function(event) {
+  $('#nav-watch').on('click', function(event) {
     event.preventDefault();
-    console.log('success!');
-
     filteredFunsies = filterByCategory(allFunsies, 1);
+    renderFunsies(filteredFunsies);
+  });
+
+  $('#nav-read').on('click', function(event) {
+    event.preventDefault();
+    filteredFunsies = filterByCategory(allFunsies, 2);
+    renderFunsies(filteredFunsies);
+  });
+
+  $('#nav-eat').on('click', function(event) {
+    event.preventDefault();
+    filteredFunsies = filterByCategory(allFunsies, 3);
+    renderFunsies(filteredFunsies);
+  });
+
+  $('#nav-buy').on('click', function(event) {
+    event.preventDefault();
+    filteredFunsies = filterByCategory(allFunsies, 4);
     renderFunsies(filteredFunsies);
   });
 
