@@ -116,24 +116,40 @@ $(document).ready(function() {
   // FILTERS
   $('#nav-watch').on('click', function(event) {
     event.preventDefault();
+
+    $('h2').empty();
+    $('h2').append('📺 WATCH');
+
     filteredFunsies = filterByCategory(allFunsies, 1);
     renderFunsies(filteredFunsies);
   });
 
   $('#nav-read').on('click', function(event) {
     event.preventDefault();
+
+    $('h2').empty();
+    $('h2').append('📖 READ');
+
     filteredFunsies = filterByCategory(allFunsies, 2);
     renderFunsies(filteredFunsies);
   });
 
   $('#nav-eat').on('click', function(event) {
     event.preventDefault();
+
+    $('h2').empty();
+    $('h2').append('🍽️ EAT');
+
     filteredFunsies = filterByCategory(allFunsies, 3);
     renderFunsies(filteredFunsies);
   });
 
   $('#nav-buy').on('click', function(event) {
     event.preventDefault();
+
+    $('h2').empty();
+    $('h2').append('💰 BUY');
+
     filteredFunsies = filterByCategory(allFunsies, 4);
     renderFunsies(filteredFunsies);
   });
