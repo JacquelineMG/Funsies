@@ -110,6 +110,38 @@ $(document).ready(function() {
     return filteredFunsies;
   };
 
+  const sortByCompletion = function(funsies) {
+
+  };
+
+  const sortByRecency = function(funsies) {
+
+  };
+
+
+  /**
+   * Sort funsies by two criteria:
+   *  1. Most recent to least recent
+   *  2. Completed funsies at bottom
+   * @param {array} funsies - Array of funsie objects
+   * @return {array} sortedFunsies - Sorted array of funsie objects
+  */
+  const sortFunsies = function(funsies) {
+    // Seperate completed vs. uncompleted funsies
+    const sortedByCompletion = sortByCompletion(funsies);
+    const completed = sortedByCompletion.completed;
+    const uncompleted = sortedByCompletion.uncompleted;
+
+    // Sort each list of funsies by recency
+    const sortedCompleted = sortByRecency(completed);
+    const sortedUncompleted = sortByRecency(uncompleted);
+
+    // Amalgamate the two sorted lists together
+    sortedFunsies = [...sortedCompleted, ...sortedUncompleted];
+
+    return sortedFunsies;
+  };
+
   // Initial funsies on page-load
   loadFunsies();
 
