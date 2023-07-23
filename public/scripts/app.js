@@ -5,6 +5,45 @@ $(document).ready(function() {
   let allFunsies;
   let filteredFunsies;
 
+    /**
+   * Sort funsies by two criteria:
+   *  1. Most recent to least recent
+   *  2. Completed funsies at bottom
+   * @param {array} funsies - Array of funsie objects
+   * @return {array} sortedFunsies - Sorted array of funsie objects
+  */
+    const sortFunsies = function(funsies) {
+      const compareFn = function(a, b) {
+        // a is complete, b is uncompleted, so a is less than b
+        if (a.is_done > b.is_done) {
+          return -1;
+        }
+
+        // b is complete, a is uncompleted, so b is less than a
+        if (b.is_done > a.is_done) {
+          return 1;
+        }
+
+        // both a and b are completed / uncompleted
+        // a was created before b, so b is less than a
+        if (a.created_date > b.created_date) {
+          return 1;
+        }
+
+        // both a and b are completed / uncompleted
+        // b was created before a, so a is less than b
+        if (b.created_date > a.created_date) {
+          return -1;
+        }
+
+        // both created simultaneously and both complete/incomplete, so they are equal
+        return 0;
+      };
+
+      const sortedFunsies = funsies.sort(compareFn);
+      return sortedFunsies;
+    };
+
   /**
    * Create individual funsie element (checkbox, name, & select category)
    * @param {object} funsie - Object containing info about individual funsie
@@ -71,7 +110,10 @@ $(document).ready(function() {
     // Empty list to not reduplicate data
     $('#funsies-container').empty();
 
-    for (const funsie of funsies) {
+    // Sort funsies by recency and completion
+    const sortedFunsies = sortFunsies(funsies);
+
+    for (const funsie of sortedFunsies) {
       const $funsie = createFunsieElement(funsie);
       $('#funsies-container').append($funsie);
     }
@@ -110,104 +152,13 @@ $(document).ready(function() {
     return filteredFunsies;
   };
 
-  /**
-   * Sorts funsies into an object of two arrays: completed vs. uncompleted
-   * Helper function to @func sortFunsies
-   * @param {array} funsies - Array of funsie objects
-   * @return {object} completionStatus - Object with two properties, each containing one array
-  */
-  // const sortByCompletion = function(funsies) {
-  //   const completionStatus = {
-  //     completed: [],
-  //     uncompleted: []
-  //   };
-
-  //   for (const funsie of funsies) {
-  //     if (funsie.is_done) {
-  //       completionStatus[completed].push(funsie);
-  //     } else {
-  //       completionStatus[uncompleted].push(funsie);
-  //     }
-  //   }
-
-  //   return completionStatus;
-  // };
-
-  // /**
-  //  * Sorts funsies by most recent to least recent
-  //  * Helper function to @func sortFunsies
-  //  * @param {array} funsies - Array of funsie objects
-  //  * @return {array} sorted - Array of funsie objects, sorted by recency
-  // */
-  // const sortByRecency = function(funsies) {
-  //   const sorted = [];
-
-  //   if ()
-
-  //   return sorted;
-  // };
-
-
-  /**
-   * Sort funsies by two criteria:
-   *  1. Most recent to least recent
-   *  2. Completed funsies at bottom
-   * @param {array} funsies - Array of funsie objects
-   * @return {array} sortedFunsies - Sorted array of funsie objects
-  */
-  const sortFunsies = function(funsies) {
-    // Seperate completed vs. uncompleted funsies
-    // const sortedByCompletion = sortByCompletion(funsies);
-    // const completed = sortedByCompletion.completed;
-    // const uncompleted = sortedByCompletion.uncompleted;
-
-    // Sort each list of funsies by recency
-    const compareFn = function(a, b) {
-      // a is complete, b is uncompleted, so a is less than b
-      if (a.is_done > b.is_done) {
-        return -1;
-      }
-
-      // b is complete, a is uncompleted, so b is less than a
-      if (b.is_done > a.is_done) {
-        return 1;
-      }
-
-      // both a and b are completed / uncompleted
-      // a was created before b, so b is less than a
-      if (a.created_date > b.created_date) {
-        return 1;
-      }
-
-      // both a and b are completed / uncompleted
-      // b was created before a, so a is less than b
-      if (b.created_date > a.created_date) {
-        return -1;
-      }
-
-      // both created simultaneously and both complete/incomplete, so they are equal
-      return 0;
-    };
-
-    const sortedFunsies = funsies.sort(compareFn);
-    // const sortedCompleted = completed.sort(compareFn);
-    // const sortedUncompleted = sortByRecency(uncompleted);
-
-    // // Amalgamate the two sorted lists together
-    // const sortedFunsies = [...sortedCompleted, ...sortedUncompleted];
-
-    return sortedFunsies;
-  };
-
   // Initial funsies on page-load
   loadFunsies();
 
   // FILTERS
   $('#nav-watch').on('click', function(event) {
     event.preventDefault();
-
-    $('h2').empty();
-    $('h2').append('📺 WATCH');
+    $('h2').empty().append('📺 WATCH');
 
     filteredFunsies = filterByCategory(allFunsies, 1);
     renderFunsies(filteredFunsies);
@@ -215,9 +166,7 @@ $(document).ready(function() {
 
   $('#nav-read').on('click', function(event) {
     event.preventDefault();
-
-    $('h2').empty();
-    $('h2').append('📖 READ');
+    $('h2').empty().append('📖 READ');
 
     filteredFunsies = filterByCategory(allFunsies, 2);
     renderFunsies(filteredFunsies);
@@ -225,9 +174,7 @@ $(document).ready(function() {
 
   $('#nav-eat').on('click', function(event) {
     event.preventDefault();
-
-    $('h2').empty();
-    $('h2').append('🍽️ EAT');
+    $('h2').empty().append('🍽️ EAT');
 
     filteredFunsies = filterByCategory(allFunsies, 3);
     renderFunsies(filteredFunsies);
@@ -235,9 +182,7 @@ $(document).ready(function() {
 
   $('#nav-buy').on('click', function(event) {
     event.preventDefault();
-
-    $('h2').empty();
-    $('h2').append('💰 BUY');
+    $('h2').empty().append('💰 BUY');
 
     filteredFunsies = filterByCategory(allFunsies, 4);
     renderFunsies(filteredFunsies);
