@@ -14,26 +14,26 @@ $(document).ready(function() {
   */
   const sortFunsies = function(funsies) {
     const compareFn = function(a, b) {
-      // a is complete, b is uncompleted, so a is less than b
+      // a is complete, b is uncompleted, so a comes after b
       if (a.is_done > b.is_done) {
-        return -1;
+        return 1;
       }
 
-      // b is complete, a is uncompleted, so b is less than a
+      // b is complete, a is uncompleted, so b comes after a
       if (b.is_done > a.is_done) {
-        return 1;
-      }
-
-      // both a and b are completed / uncompleted
-      // a was created before b, so b is less than a
-      if (a.created_date > b.created_date) {
-        return 1;
-      }
-
-      // both a and b are completed / uncompleted
-      // b was created before a, so a is less than b
-      if (b.created_date > a.created_date) {
         return -1;
+      }
+
+      // both a and b are completed / uncompleted
+      // a was created before b, so b comes after a
+      if (a.created_date > b.created_date) {
+        return -1;
+      }
+
+      // both a and b are completed / uncompleted
+      // b was created before a, so a comes after b
+      if (b.created_date > a.created_date) {
+        return 1;
       }
 
       // both created simultaneously and both complete/incomplete, so they are equal
@@ -138,18 +138,18 @@ $(document).ready(function() {
    * Filter list and return funsies only of a specific category
    * @param {array} funsies - Array of funsie objects
    * @param {number} category - Number from 1-4 representing a category id
-   * @return {array} filteredFunsies - Filtered array of funsie objects
+   * @return {array} categorizedFunsies - Filtered array of funsie objects
   */
   const filterByCategory = function(funsies, category) {
-    let filteredFunsies = [];
+    let categorizedFunsies = [];
 
     for (const funsie of funsies) {
       if (funsie.category_id === category) {
-        filteredFunsies.push(funsie);
+        categorizedFunsies.push(funsie);
       }
     }
 
-    return filteredFunsies;
+    return categorizedFunsies;
   };
 
   // Initial funsies on page-load
@@ -214,21 +214,24 @@ $(document).ready(function() {
   // Add new funsie to DB
   $('#new-funsie-form').on('submit', function(event) {
     event.preventDefault();
+
+    // Serialize the form data
     const $formData = $('#new-funsie-form');
-    // serialize the form data
     const data = $formData.serialize();
-    
-    // create an AJAX POST request that sends the form data to the server
-    $.post("/api/items", data)
-      .then(res => {
+
+    // Create an AJAX POST request that sends the form data to the server
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:8080/api/items',
+      data,
+      success: function() {
         loadFunsies();
-        $('#funsie-name').val('');
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
 
+    $('#funsie-name').val('');
   });
-
-
 });
