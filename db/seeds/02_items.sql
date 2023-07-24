@@ -43,6 +43,7 @@ INSERT INTO items (category_id, title, is_done)
 VALUES (2, 'Atonement', false);
 INSERT INTO items (category_id, title, is_done)
 VALUES (2, 'The Great Gatsby', false);
+INSERT INTO items (category_id, title, is_done)
 VALUES (1, 'Oppenheimer', false);
 INSERT INTO items (category_id, title, is_done)
 VALUES (1, 'Greta Gerwig`s Barbie', false);
