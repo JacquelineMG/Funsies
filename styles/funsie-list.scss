@@ -26,6 +26,11 @@
         font-family: $text-font;
         font-size: 20px;
         padding-left: 1.2em;
+
+        &.done {
+          color: rgb(192, 192, 192);
+          text-decoration: line-through;
+        }
       }
 
       select {
@@ -34,39 +39,35 @@
         width: 150px;
         text-align-last: center;
         background-color: white;
+        &.read {
+          background-color: $read;
+        }
+        &.watch {
+          background-color: $watch;
+        }
+        &.eat {
+          background-color: $eat;
+        }
+        &.buy {
+          background-color: $buy;
+        }
+
+        option {
+          &.read {
+            background-color: $read;
+          }
+          &.watch {
+            background-color: $watch;
+          }
+          &.eat {
+            background-color: $eat;
+          }
+          &.buy {
+            background-color: $buy;
+          }
+        }
       }
 
-      select option[value="watch"] {
-        background: $watch;
-      }
-
-      select option[value="read"] {
-        background: $read;
-      }
-
-      select option[value="eat"] {
-        background: $eat;
-      }
-
-      select option[value="buy"] {
-        background: $buy;
-      }
-
-      .colourwatch {
-        background-color: $watch;
-      }
-
-      .colourread {
-        background-color: $read;
-      }
-
-      .coloureat {
-        background-color: $eat;
-      }
-
-      .colourbuy {
-        background-color: $buy;
-      }
     }
   }
 }
