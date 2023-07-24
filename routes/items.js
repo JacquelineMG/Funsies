@@ -54,7 +54,7 @@ router.post('/', (req, res) => {
     return;
   }
   const item = req.body.text;
-  
+
   const category = getCatId(item);
   const categories = {
     "To Watch": 1,
