@@ -138,18 +138,18 @@ $(document).ready(function() {
    * Filter list and return funsies only of a specific category
    * @param {array} funsies - Array of funsie objects
    * @param {number} category - Number from 1-4 representing a category id
-   * @return {array} filteredFunsies - Filtered array of funsie objects
+   * @return {array} categorizedFunsies - Filtered array of funsie objects
   */
   const filterByCategory = function(funsies, category) {
-    let filteredFunsies = [];
+    let categorizedFunsies = [];
 
     for (const funsie of funsies) {
       if (funsie.category_id === category) {
-        filteredFunsies.push(funsie);
+        categorizedFunsies.push(funsie);
       }
     }
 
-    return filteredFunsies;
+    return categorizedFunsies;
   };
 
   // Initial funsies on page-load
@@ -221,6 +221,7 @@ $(document).ready(function() {
     // create an AJAX POST request that sends the form data to the server
     $.post("/api/items", data)
       .then(res => {
+        console.log(res);
         loadFunsies();
         $('#funsie-name').val('');
       })
