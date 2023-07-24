@@ -30,6 +30,7 @@
 
   <!-- App JS -->
   <script defer src="/scripts/app.js"></script>
+  <script defer src="/scripts/form.js"></script>
 </head>
 
 <body>
@@ -67,12 +68,12 @@
     <main>
       <!-- Add Funsie Form -->
       <div id="funsie-form">
-        <a>+ Add Funsie</a>
+        <a href="/" id="add-funsie">+ Add Funsie</a>
         <form method="POST" action="/" id="new-funsie-form">
           <label for="funsie-name"></label>
           <input type="text" id="funsie-name" placeholder="Funsie Name" name="text">
           <footer>
-            <button type="button">Cancel</button>
+            <button type="button" id="cancel-button">Cancel</button>
             <button type="submit">Add</button>
           </footer>
         </form>
