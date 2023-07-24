@@ -41,7 +41,7 @@ const getListByCategory = function(categoryId) {
 };
 
 // adds new item to db
-const addNewItem = (categoryId, title) => {
+const addNewItem = async(categoryId, title) => {
   const queryString = `
   INSERT INTO items (category_id, title)
   VALUES ($1, $2)

@@ -214,22 +214,24 @@ $(document).ready(function() {
   // Add new funsie to DB
   $('#new-funsie-form').on('submit', function(event) {
     event.preventDefault();
+
+    // Serialize the form data
     const $formData = $('#new-funsie-form');
-    // serialize the form data
     const data = $formData.serialize();
 
-    // create an AJAX POST request that sends the form data to the server
-    $.post("/api/items", data)
-      .then(res => {
-        console.log(res);
+    // Create an AJAX POST request that sends the form data to the server
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:8080/api/items',
+      data,
+      success: function() {
         loadFunsies();
-        $('#funsie-name').val('');
-      })
-      .catch(err => {
-        console.log(err);
-      });
+      },
+      error: function(error) {
+        console.log(error);
+      }
+    });
 
+    $('#funsie-name').val('');
   });
-
-
 });

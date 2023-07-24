@@ -63,8 +63,8 @@ router.post('/', (req, res) => {
     "To Buy": 4
   };
 
-  getCatId(newItem)
-    .then((category) => {
+  return getCatId(newItem)
+    .then(async(category) => {
       const categories = {
         "To Watch": 1,
         "To Read": 2,
@@ -74,13 +74,8 @@ router.post('/', (req, res) => {
 
       const categoryId = categories[category];
 
-      dataHelpers.addNewItem(categoryId, newItem, (err) => {
-        if (err) {
-          res.status(500).json({ error: err.message });
-        } else {
-          res.status(201).send();
-        }
-      });
+      let x = await dataHelpers.addNewItem(categoryId, newItem);
+      res.json(x);
     })
     .catch((err) => {
       console.log(err);
