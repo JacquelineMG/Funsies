@@ -214,7 +214,8 @@ $(document).ready(function() {
     // create an AJAX POST request that sends the form data to the server
     $.post("/api/items", data)
       .then(res => {
-        console.log(data);
+        loadFunsies();
+        $('#funsie-name').val('');
       })
       .catch(err => {
         console.log(err);
