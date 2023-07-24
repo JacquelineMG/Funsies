@@ -71,24 +71,13 @@ const getCatId = async function(input) {
       return "To Eat";
     } else if (result.includes("Book")) {
       return "To Read";
-    } else if (result.includes("Product")) {  // could change to get rid of uncategorized and include all uncategorized items in product
-      return "To Buy";
     } else {
-      return "Uncategorized";
+      return "To Buy";
     }
   } catch (error) {
     console.error(error);
   }
 };
-
-
-// Use Example
-
-// getCatId("Harry Potter and the Goblet of Fire")
-//   .then((id) => {
-//     console.log(id);
-//   });
-
 
 module.exports = { getCatId };
 
