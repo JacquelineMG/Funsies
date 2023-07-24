@@ -56,13 +56,6 @@ router.post('/', (req, res) => {
   const newItem = req.body.text;
   console.log("Item:", newItem);
 
-  const categories = {
-    "To Watch": 1,
-    "To Read": 2,
-    "To Eat": 3,
-    "To Buy": 4
-  };
-
   getCatId(newItem)
     .then((category) => {
       const categories = {

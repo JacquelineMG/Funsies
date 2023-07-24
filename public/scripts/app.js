@@ -188,6 +188,13 @@ $(document).ready(function() {
     renderFunsies(filteredFunsies);
   });
 
+  $('#nav-all').on('click', function(event) {
+    event.preventDefault();
+    $('h2').empty().append('🍭 ALL');
+
+    renderFunsies(allFunsies);
+  });
+
   // Change background colour on drop down box to match selected value's colour
   // Won't work without ids on drop down boxes, so probably not a long-term solution
   for (let i = 1; i < 100; i++) {
