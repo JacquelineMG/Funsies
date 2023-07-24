@@ -210,7 +210,7 @@ $(document).ready(function() {
     const $formData = $('#new-funsie-form');
     // serialize the form data
     const data = $formData.serialize();
-    
+
     // create an AJAX POST request that sends the form data to the server
     $.post("/api/items", data)
       .then(res => {
