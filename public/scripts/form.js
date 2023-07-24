@@ -2,15 +2,16 @@
 /* eslint-disable no-undef */
 
 $(document).ready(function() {
-  // hide form initially
-  $("#new-funsie-form").hide();
   $(document).on('click', "#add-funsie", (event) => {
     event.preventDefault();
-
+    
+    const form = document.getElementById('new-funsie-form');
+    
     // slide form down when "add funsie" is clicked
     $("#new-funsie-form")
-      .slideDown()
-      .show();
+    .slideDown()
+    .show();
+    form.style.display = 'flex';
   });
 
   // slide form up when cancel button is clicked
