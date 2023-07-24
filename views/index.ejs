@@ -45,10 +45,10 @@
     <span class="c1" data-letter="s">s</span>
     </div>
     <span id="nav-links">
-      <a href="/watch">📺 WATCH</a>
-      <a href="/read">📖 READ</a>
-      <a href="/eat">🍽️ EAT</a>
-      <a href="/buy">💰 BUY</a>
+      <a href="/watch" id="nav-watch">📺 WATCH</a>
+      <a href="/read" id="nav-read">📖 READ</a>
+      <a href="/eat" id="nav-eat">🍽️ EAT</a>
+      <a href="/buy" id="nav-buy">💰 BUY</a>
       <a href="/">🍭 ALL</a>
     </span>
   </nav>
@@ -68,9 +68,9 @@
       <!-- Add Funsie Form -->
       <div id="funsie-form">
         <a>+ Add Funsie</a>
-        <form method="POST" action="/to-do">
+        <form method="POST" action="/" id="new-funsie-form">
           <label for="funsie-name"></label>
-          <input type="text" id="funsie-name" placeholder="Funsie Name">
+          <input type="text" id="funsie-name" placeholder="Funsie Name" name="text">
           <footer>
             <button type="button">Cancel</button>
             <button type="submit">Add</button>
