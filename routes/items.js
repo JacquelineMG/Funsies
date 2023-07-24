@@ -7,7 +7,7 @@
 
 const express = require('express');
 const router = express.Router();
-const getCatId = require('./helperFunctions/fetchCategory.js');
+const { getCatId } = require('./helperFunctions/fetchCategory.js');
 const dataHelpers = require('./data-helpers.js');
 
 // get all items
@@ -50,34 +50,49 @@ router.get('/:category', (req, res) => {
 // Add new item ** need to add an event listener **
 router.post('/', (req, res) => {
   if (!req.body.text) {
-    res.status(400).json({error: 'invalid request: no data in POST body'});
+    res.status(400).json({ error: 'invalid request: no data in POST body' });
     return;
   }
-  const item = req.body.text;
-  
-  const category = getCatId(item);
+  const newItem = req.body.text;
+  console.log("Item:", newItem);
+
   const categories = {
     "To Watch": 1,
     "To Read": 2,
     "To Eat": 3,
     "To Buy": 4
   };
-  const categoryId = categories[category];
-  dataHelpers
-    .addNewItem(categoryId, item)
-    .then((response) => {
-      res.send(response);
+
+  getCatId(newItem)
+    .then((category) => {
+      const categories = {
+        "To Watch": 1,
+        "To Read": 2,
+        "To Eat": 3,
+        "To Buy": 4
+      };
+
+      const categoryId = categories[category];
+
+      dataHelpers.addNewItem(categoryId, newItem, (err) => {
+        if (err) {
+          res.status(500).json({ error: err.message });
+        } else {
+          res.status(201).send();
+        }
+      });
     })
     .catch((err) => {
-      res.send(err);
+      console.log(err);
+      res.status(500).json({ error: 'Error getting category ID'});
     });
 });
+
+
 
 module.exports = router;
 
 /*
-
-// Add new item to list and category
 
 // Edit an item
 router.post('/:id', (req, res) => {

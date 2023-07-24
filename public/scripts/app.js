@@ -203,4 +203,25 @@ $(document).ready(function() {
       $(`#${categories}`).removeClass().addClass(`colour${cat}`);
     });
   }
+
+  // Add new funsie to DB
+  $('#new-funsie-form').on('submit', function(event) {
+    event.preventDefault();
+    const $formData = $('#new-funsie-form');
+    // serialize the form data
+    const data = $formData.serialize();
+    
+    // create an AJAX POST request that sends the form data to the server
+    $.post("/api/items", data)
+      .then(res => {
+        loadFunsies();
+        $('#funsie-name').val('');
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+  });
+
+
 });
