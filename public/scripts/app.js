@@ -14,26 +14,26 @@ $(document).ready(function() {
   */
   const sortFunsies = function(funsies) {
     const compareFn = function(a, b) {
-      // a is complete, b is uncompleted, so a is less than b
+      // a is complete, b is uncompleted, so a comes after b
       if (a.is_done > b.is_done) {
-        return -1;
-      }
-
-      // b is complete, a is uncompleted, so b is less than a
-      if (b.is_done < a.is_done) {
         return 1;
       }
 
+      // b is complete, a is uncompleted, so b comes after a
+      if (b.is_done > a.is_done) {
+        return -1;
+      }
+
       // both a and b are completed / uncompleted
-      // a was created before b, so b is less than a
+      // a was created before b, so b comes after a
       if (a.created_date > b.created_date) {
-        return 1;
+        return -1;
       }
 
       // both a and b are completed / uncompleted
-      // b was created before a, so a is less than b
+      // b was created before a, so a comes after b
       if (b.created_date > a.created_date) {
-        return -1;
+        return 1;
       }
 
       // both created simultaneously and both complete/incomplete, so they are equal
