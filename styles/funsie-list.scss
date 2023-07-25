@@ -38,7 +38,11 @@
         border-radius: 15px;
         width: 150px;
         text-align-last: center;
-        background-color: white;
+        color: $text-light;
+        font-family: $text-font;
+        letter-spacing: 0.15em;
+        font-size: 17px;
+        border: none;
         &.read {
           background-color: $read;
         }
