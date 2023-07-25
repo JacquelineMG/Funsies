@@ -57,8 +57,8 @@ $(document).ready(function() {
     let element = `
       <fieldset id="${funsie.id}">
       <span>
-        <input type="checkbox" id="${funsie.id}-checkbox">
-        <label for="${funsie.id}-checkbox">${funsie.title}</label>
+        <input type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>
+        <label for="${funsie.id}-checkbox" ${funsie.is_done ? 'class="done"' : ''}>${funsie.title}</label>
       </span>
       <select name="categories[${funsie.id}]" id="${funsie.id}-categories">
       `;
@@ -164,7 +164,7 @@ $(document).ready(function() {
   loadFunsies();
 
   // FILTERS
-  $('#show-completed').on('change', function(event) {
+  $('#show-completed').on('change', function() {
     showCompleted = !showCompleted;
     renderFunsies(filteredFunsies);
   });
