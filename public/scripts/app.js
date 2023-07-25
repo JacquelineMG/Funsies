@@ -290,8 +290,7 @@ $(document).ready(function() {
       },
       dataType: 'json',
       success: function() {
-        alert("do you want to change the category?");
-        
+        loadFunsies();
       },
       error: function() {
         alert('error!');
