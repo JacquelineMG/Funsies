@@ -66,10 +66,9 @@ $(document).ready(function() {
       buy: "💰 BUY"
     };
 
-    console.log({funsie})
-    const categoriesEntries = Object.entries(categories)
-    const categoriesOpt = categoriesEntries.map(([key, value], index) => (`<option value="${index + 1}" class="${key}" ${funsie.category_id === index + 1? "selected" : ""}>${value}</option>`));
-    element += categoriesOpt.join("\n")
+    const categoriesEntries = Object.entries(categories);
+    const categoriesOpt = categoriesEntries.map(([key, value], index) => (`<option value="${index + 1}" class="${key}" ${funsie.category_id === index + 1 ? "selected" : ""}>${value}</option>`));
+    element += categoriesOpt.join("\n");
 
     element += `
       </select>
@@ -77,19 +76,18 @@ $(document).ready(function() {
       `;
 
     const $funsie = $(element);
-    const selector = $funsie.find("select")
+    const selector = $funsie.find("select");
     selector.addClass(categoriesEntries[selector.val() - 1][0]);
     selector.on("change", function(event) {
       $(this).removeClass();
       $(this).addClass(categoriesEntries[event.target.value - 1][0]);
-    })
+    });
 
-    const checkBox = $funsie.find("input")
+    const checkBox = $funsie.find("input");
     const doneStyle = $funsie.find("label");
-    checkBox.on("click", function(event) {
+    checkBox.on("click", function() {
       $(doneStyle).toggleClass("done");
-    } )
-
+    });
 
     return $funsie;
   };
