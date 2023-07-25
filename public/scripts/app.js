@@ -102,10 +102,10 @@ $(document).ready(function() {
     checkBox.on("click", function() {
       if (!funsie.is_done) {
         funsie.is_done = true;
-        $(checkBoxLabel).toggleClass("done");
+        $(checkBoxLabel).addClass("done");
       } else {
         funsie.is_done = false;
-        $(checkBoxLabel).toggleClass("done");
+        $(checkBoxLabel).removeClass("done");
       }
     });
 
