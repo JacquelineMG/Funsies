@@ -5,6 +5,10 @@ $(document).ready(function() {
   let allFunsies;
   let filteredFunsies;
 
+  // Set default show completed toggle to true
+  let showCompleted = true;
+  $('#show-completed').prop('checked', true);
+
   /**
    * Sort funsies by two criteria:
    *  1. Most recent to least recent
@@ -53,8 +57,8 @@ $(document).ready(function() {
     let element = `
       <fieldset id="${funsie.id}">
       <span>
-        <input type="checkbox" id="${funsie.id}-checkbox">
-        <label for="${funsie.id}-checkbox">${funsie.title}</label>
+        <input type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>
+        <label for="${funsie.id}-checkbox" ${funsie.is_done ? 'class="done"' : ''}>${funsie.title}</label>
       </span>
       <select name="categories[${funsie.id}]" id="${funsie.id}-categories">
       `;
@@ -66,30 +70,30 @@ $(document).ready(function() {
       buy: "💰 BUY"
     };
 
-    console.log({funsie})
-    const categoriesEntries = Object.entries(categories)
-    const categoriesOpt = categoriesEntries.map(([key, value], index) => (`<option value="${index + 1}" class="${key}" ${funsie.category_id === index + 1? "selected" : ""}>${value}</option>`));
-    element += categoriesOpt.join("\n")
+    const categoriesEntries = Object.entries(categories);
+    const categoriesOpt = categoriesEntries.map(([key, value], index) => (`<option value="${index + 1}" class="${key}" ${funsie.category_id === index + 1 ? "selected" : ""}>${value}</option>`));
+    element += categoriesOpt.join("\n");
 
     element += `
       </select>
       </fieldset>
       `;
 
+    // Dynamically change select backgrounds based off of category change
     const $funsie = $(element);
-    const selector = $funsie.find("select")
+    const selector = $funsie.find("select");
     selector.addClass(categoriesEntries[selector.val() - 1][0]);
     selector.on("change", function(event) {
       $(this).removeClass();
       $(this).addClass(categoriesEntries[event.target.value - 1][0]);
-    })
+    });
 
-    const checkBox = $funsie.find("input")
+    // Dynamically change text / checkbox style based off completion status
+    const checkBox = $funsie.find("input");
     const doneStyle = $funsie.find("label");
-    checkBox.on("click", function(event) {
+    checkBox.on("click", function() {
       $(doneStyle).toggleClass("done");
-    } )
-
+    });
 
     return $funsie;
   };
@@ -99,13 +103,26 @@ $(document).ready(function() {
    * @param {array} funsies - Array of funsie objects
   */
   const renderFunsies = function(funsies) {
+    let finalFunsies = [];
+
     // Empty list to not reduplicate data
     $('#funsies-container').empty();
 
     // Sort funsies by recency and completion
-    const sortedFunsies = sortFunsies(funsies);
+    let sortedFunsies = sortFunsies(funsies);
 
-    for (const funsie of sortedFunsies) {
+    // Check status of show completed toggle
+    if (!showCompleted) {
+      for (const funsie of sortedFunsies) {
+        if (!funsie.is_done) {
+          finalFunsies.push(funsie);
+        }
+      }
+    } else {
+      finalFunsies = sortedFunsies;
+    }
+
+    for (const funsie of finalFunsies) {
       const $funsie = createFunsieElement(funsie);
       $('#funsies-container').append($funsie);
     }
@@ -120,6 +137,7 @@ $(document).ready(function() {
       // Save default to apply different filters
       if (!allFunsies) {
         allFunsies = data;
+        filteredFunsies = data;
       }
 
       renderFunsies(data);
@@ -148,6 +166,11 @@ $(document).ready(function() {
   loadFunsies();
 
   // FILTERS
+  $('#show-completed').on('change', function() {
+    showCompleted = !showCompleted;
+    renderFunsies(filteredFunsies);
+  });
+
   $('#nav-watch').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('📺 WATCH');
