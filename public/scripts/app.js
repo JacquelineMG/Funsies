@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable indent */
 /* eslint-disable no-undef */
 
@@ -48,6 +49,16 @@ $(document).ready(function() {
     return sortedFunsies;
   };
 
+  /** Check which page you are on and render appropriately */
+  const renderPage = function() {
+    const h2 = $('h2').html();
+    if (h2 === '🍭 ALL') {
+      renderFunsies(allFunsies);
+    } else {
+      renderFunsies(filteredFunsies);
+    }
+  };
+
   /**
    * Create individual funsie element (checkbox, name, & select category)
    * @param {object} funsie - Object containing info about individual funsie
@@ -90,9 +101,23 @@ $(document).ready(function() {
 
     // Dynamically change text / checkbox style based off completion status
     const checkBox = $funsie.find("input");
-    const doneStyle = $funsie.find("label");
+    const checkBoxLabel = $funsie.find("label");
+
+    if (funsie.is_done) {
+      $(checkBoxLabel).addClass("done");
+    } else {
+      $(checkBoxLabel).removeClass("done");
+    }
+
     checkBox.on("click", function() {
-      $(doneStyle).toggleClass("done");
+      if (!funsie.is_done) {
+        funsie.is_done = true;
+        $(checkBoxLabel).addClass("done");
+      } else {
+        funsie.is_done = false;
+        $(checkBoxLabel).removeClass("done");
+      }
+      renderPage();
     });
 
     return $funsie;
@@ -135,11 +160,9 @@ $(document).ready(function() {
       url: 'http://localhost:8080/api/items'
     }).then(function(data) {
       // Save default to apply different filters
-      if (!allFunsies) {
-        allFunsies = data;
-      }
+      allFunsies = data;
 
-      renderFunsies(data);
+      renderPage();
     });
   };
 
@@ -167,14 +190,7 @@ $(document).ready(function() {
   // FILTERS
   $('#show-completed').on('change', function() {
     showCompleted = !showCompleted;
-
-    // Check which page you are on & render appropriately
-    const h2 = $('h2').html();
-    if (h2 === '🍭 ALL') {
-      renderFunsies(allFunsies);
-    } else {
-      renderFunsies(filteredFunsies);
-    }
+    renderPage();
   });
 
   $('#nav-watch').on('click', function(event) {
@@ -182,7 +198,7 @@ $(document).ready(function() {
     $('h2').empty().append('📺 WATCH');
 
     filteredFunsies = filterByCategory(allFunsies, 1);
-    renderFunsies(filteredFunsies);
+    renderPage();
   });
 
   $('#nav-read').on('click', function(event) {
@@ -190,7 +206,7 @@ $(document).ready(function() {
     $('h2').empty().append('📖 READ');
 
     filteredFunsies = filterByCategory(allFunsies, 2);
-    renderFunsies(filteredFunsies);
+    renderPage();
   });
 
   $('#nav-eat').on('click', function(event) {
@@ -198,7 +214,7 @@ $(document).ready(function() {
     $('h2').empty().append('🍽️ EAT');
 
     filteredFunsies = filterByCategory(allFunsies, 3);
-    renderFunsies(filteredFunsies);
+    renderPage();
   });
 
   $('#nav-buy').on('click', function(event) {
@@ -206,14 +222,14 @@ $(document).ready(function() {
     $('h2').empty().append('💰 BUY');
 
     filteredFunsies = filterByCategory(allFunsies, 4);
-    renderFunsies(filteredFunsies);
+    renderPage();
   });
 
   $('#nav-all').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('🍭 ALL');
 
-    renderFunsies(allFunsies);
+    renderPage();
   });
 
   // Add new funsie to DB
