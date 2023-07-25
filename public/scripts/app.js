@@ -49,8 +49,8 @@ $(document).ready(function() {
     return sortedFunsies;
   };
 
-  /** Check which page you are on & re-render appropriately */
-  const reRenderPage = function() {
+  /** Check which page you are on and render appropriately */
+  const renderPage = function() {
     const h2 = $('h2').html();
     if (h2 === '🍭 ALL') {
       renderFunsies(allFunsies);
@@ -117,7 +117,7 @@ $(document).ready(function() {
         funsie.is_done = false;
         $(checkBoxLabel).removeClass("done");
       }
-      reRenderPage();
+      renderPage();
     });
 
     return $funsie;
@@ -162,7 +162,7 @@ $(document).ready(function() {
       // Save default to apply different filters
       allFunsies = data;
 
-      reRenderPage();
+      renderPage();
     });
   };
 
@@ -190,7 +190,7 @@ $(document).ready(function() {
   // FILTERS
   $('#show-completed').on('change', function() {
     showCompleted = !showCompleted;
-    reRenderPage();
+    renderPage();
   });
 
   $('#nav-watch').on('click', function(event) {
@@ -198,7 +198,7 @@ $(document).ready(function() {
     $('h2').empty().append('📺 WATCH');
 
     filteredFunsies = filterByCategory(allFunsies, 1);
-    reRenderPage();
+    renderPage();
   });
 
   $('#nav-read').on('click', function(event) {
@@ -206,7 +206,7 @@ $(document).ready(function() {
     $('h2').empty().append('📖 READ');
 
     filteredFunsies = filterByCategory(allFunsies, 2);
-    reRenderPage();
+    renderPage();
   });
 
   $('#nav-eat').on('click', function(event) {
@@ -214,7 +214,7 @@ $(document).ready(function() {
     $('h2').empty().append('🍽️ EAT');
 
     filteredFunsies = filterByCategory(allFunsies, 3);
-    reRenderPage();
+    renderPage();
   });
 
   $('#nav-buy').on('click', function(event) {
@@ -222,14 +222,14 @@ $(document).ready(function() {
     $('h2').empty().append('💰 BUY');
 
     filteredFunsies = filterByCategory(allFunsies, 4);
-    reRenderPage();
+    renderPage();
   });
 
   $('#nav-all').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('🍭 ALL');
 
-    reRenderPage();
+    renderPage();
   });
 
   // Add new funsie to DB
