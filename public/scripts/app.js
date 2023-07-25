@@ -71,7 +71,7 @@ $(document).ready(function() {
         <input type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>
         <label for="${funsie.id}-checkbox" ${funsie.is_done ? 'class="done"' : ''}>${funsie.title}</label>
       </span>
-      <select name="categories[${funsie.id}]" id="${funsie.id}-categories">
+      <select name="categories[${funsie.id}]" data-category-id=${funsie.id} id="${funsie.id}-categories">
       `;
 
     const categories = {
@@ -255,4 +255,48 @@ $(document).ready(function() {
 
     $('#funsie-name').val('');
   });
+
+  
+  // Edit funsie category
+  
+    /**
+   * Adds a istener for specific tags for elements that may not yet exist.
+   * @param scope a reference to an element to look for elements in (i.e. document)
+   * @param selector the selector in [class] (i.e. a.someBtn)
+   * @param event and event (i.e. click)
+   * @param callback a function reference to execute on an event
+   */
+  const addLiveListener = function(scope, tagName, event, callback) {
+    // Set up interval to check for new items that do not have listeners yet. This will execute every 1/10 second and apply listeners to
+    setInterval(function() {
+      const elements = scope.getElementsByTagName(tagName);
+      for (const element of elements) {
+          element.addEventListener(event, callback);
+      }
+    }, 1000);
+  };
+
+  addLiveListener(document, "select", "change", (event) => {
+    const itemId = event.target.getAttribute("data-category-id");
+    const categoryId =  event.target.value;
+    console.log('categoryId:', categoryId, 'itemId:', itemId);
+    
+    $.ajax({
+      type: 'PUT',
+      url: `http://localhost:8080/api/items/${itemId}`,
+      data: {
+        itemId,
+        categoryId
+      },
+      dataType: 'json',
+      success: function() {
+        loadFunsies();
+      },
+      error: function() {
+        alert('error!');
+      }
+    });
+
+  });
+  
 });
