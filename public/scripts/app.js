@@ -5,6 +5,10 @@ $(document).ready(function() {
   let allFunsies;
   let filteredFunsies;
 
+  // Set default show completed toggle to true
+  let showCompleted = true;
+  $('#show-completed').prop('checked', true);
+
   /**
    * Sort funsies by two criteria:
    *  1. Most recent to least recent
@@ -97,13 +101,26 @@ $(document).ready(function() {
    * @param {array} funsies - Array of funsie objects
   */
   const renderFunsies = function(funsies) {
+    let finalFunsies = [];
+
     // Empty list to not reduplicate data
     $('#funsies-container').empty();
 
     // Sort funsies by recency and completion
-    const sortedFunsies = sortFunsies(funsies);
+    let sortedFunsies = sortFunsies(funsies);
 
-    for (const funsie of sortedFunsies) {
+    // Check status of show completed toggle
+    if (!showCompleted) {
+      for (const funsie of sortedFunsies) {
+        if (!funsie.is_done) {
+          finalFunsies.push(funsie);
+        }
+      }
+    } else {
+      finalFunsies = sortedFunsies;
+    }
+
+    for (const funsie of finalFunsies) {
       const $funsie = createFunsieElement(funsie);
       $('#funsies-container').append($funsie);
     }
@@ -118,6 +135,7 @@ $(document).ready(function() {
       // Save default to apply different filters
       if (!allFunsies) {
         allFunsies = data;
+        filteredFunsies = data;
       }
 
       renderFunsies(data);
@@ -146,6 +164,11 @@ $(document).ready(function() {
   loadFunsies();
 
   // FILTERS
+  $('#show-completed').on('change', function(event) {
+    showCompleted = !showCompleted;
+    renderFunsies(filteredFunsies);
+  });
+
   $('#nav-watch').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('📺 WATCH');
