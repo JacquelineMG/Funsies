@@ -56,7 +56,7 @@ $(document).ready(function() {
         <input type="checkbox" id="${funsie.id}-checkbox">
         <label for="${funsie.id}-checkbox">${funsie.title}</label>
       </span>
-      <select name="categories[${funsie.id}]" data-catergory-id=${funsie.id} id="${funsie.id}-categories">
+      <select name="categories[${funsie.id}]" data-category-id=${funsie.id} id="${funsie.id}-categories">
       `;
 
     const categories = {
@@ -66,7 +66,7 @@ $(document).ready(function() {
       buy: "💰 BUY"
     };
 
-    console.log({funsie})
+    // console.log({funsie})
     const categoriesEntries = Object.entries(categories)
     const categoriesOpt = categoriesEntries.map(([key, value], index) => (`<option value="${index + 1}" class="${key}" ${funsie.category_id === index + 1? "selected" : ""}>${value}</option>`));
     element += categoriesOpt.join("\n")
@@ -221,7 +221,7 @@ $(document).ready(function() {
    * @param event and event (i.e. click)
    * @param callback a function reference to execute on an event
    */
-  const addLiveListener = function (scope, tagName, event, callback) {
+  const addLiveListener = function(scope, tagName, event, callback) {
     // Set up interval to check for new items that do not have listeners yet. This will execute every 1/10 second and apply listeners to
     setInterval(function() {
       const elements = scope.getElementsByTagName(tagName);
@@ -232,9 +232,27 @@ $(document).ready(function() {
   };
 
   addLiveListener(document, "select", "change", (event) => {
-    const itemId = event.target.getAttribute("data-catergory-id");
-    const categoryName =  event.target.value;
-    // console.log('categoryName:', categoryName, 'itemId:', itemId);
+    const itemId = event.target.getAttribute("data-category-id");
+    const categoryId =  event.target.value;
+    console.log('categoryId:', categoryId, 'itemId:', itemId);
+    
+    $.ajax({
+      type: 'PUT',
+      url: `http://localhost:8080/api/items/${itemId}`,
+      data: {
+        itemId,
+        categoryId
+      },
+      dataType: 'json',
+      success: function() {
+        alert("do you want to change the category?");
+        
+      },
+      error: function() {
+        alert('error!');
+      }
+    });
+
   });
   
 });

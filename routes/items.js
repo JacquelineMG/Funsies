@@ -77,8 +77,23 @@ router.post('/', (req, res) => {
 });
 
 // Edit an item
-router.put('', (req, res) => {
-
+router.put('/:id', (req, res) => {
+  const id = req.params.id;
+  const itemId = req.body.itemId;
+  const categoryId = req.body.categoryId;
+  console.log(itemId, categoryId);
+  dataHelpers.editItemCategory(categoryId, id)
+    .then((updatedItem) => {
+      if (updatedItem) {
+        res.json(updatedItem);
+      } else {
+        res.status(404).json({ error: 'Item not found' });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500);
+    });
 });
 
 
