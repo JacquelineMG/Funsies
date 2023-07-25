@@ -68,9 +68,10 @@ $(document).ready(function() {
     let element = `
       <fieldset id="${funsie.id}">
       <span>
-        <input type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>
+        <input title="Checkoff Funsie" type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>
         <label for="${funsie.id}-checkbox" ${funsie.is_done ? 'class="done"' : ''}>${funsie.title}</label>
       </span>
+      <div id="right-side">
       <select name="categories[${funsie.id}]" data-category-id=${funsie.id} id="${funsie.id}-categories">
       `;
 
@@ -87,6 +88,12 @@ $(document).ready(function() {
 
     element += `
       </select>
+      <span>
+      <form method="POST" action="/api/items/:id/delete" id="delete-funsie-form">
+      <button title="Delete Funsie" id="delete-button" type="submit"><i class="fa-regular fa-circle-xmark"></i></i></button>
+      </form>
+      </span>
+      </div>
       </fieldset>
       `;
 
@@ -256,9 +263,9 @@ $(document).ready(function() {
     $('#funsie-name').val('');
   });
 
-  
+
   // Edit funsie category
-  
+
     /**
    * Adds a istener for specific tags for elements that may not yet exist.
    * @param scope a reference to an element to look for elements in (i.e. document)
@@ -280,7 +287,7 @@ $(document).ready(function() {
     const itemId = event.target.getAttribute("data-category-id");
     const categoryId =  event.target.value;
     console.log('categoryId:', categoryId, 'itemId:', itemId);
-    
+
     $.ajax({
       type: 'PUT',
       url: `http://localhost:8080/api/items/${itemId}`,
@@ -298,5 +305,5 @@ $(document).ready(function() {
     });
 
   });
-  
+
 });

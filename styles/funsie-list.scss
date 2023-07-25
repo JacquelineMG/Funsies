@@ -2,7 +2,7 @@
 
 #funsie-list {
   padding-bottom: 75px;
-  
+
   h2 {
     color: $heading-color;
     font-family: $heading-font;
@@ -11,7 +11,7 @@
   }
 
   form {
-    width: 90%;
+    width: 95%;
 
     fieldset {
       border: none;
@@ -35,30 +35,20 @@
         }
       }
 
-      select {
-        outline: none;
-        border-radius: 15px;
-        width: 150px;
-        text-align-last: center;
-        color: $text-light;
-        font-family: $text-font;
-        letter-spacing: 0.15em;
-        font-size: 17px;
-        border: none;
-        &.read {
-          background-color: $read;
-        }
-        &.watch {
-          background-color: $watch;
-        }
-        &.eat {
-          background-color: $eat;
-        }
-        &.buy {
-          background-color: $buy;
-        }
+      #right-side{
+        display: flex;
+        flex-direction: row;
 
-        option {
+        select {
+          outline: none;
+          border-radius: 15px;
+          width: 150px;
+          text-align-last: center;
+          color: $text-light;
+          font-family: $text-font;
+          letter-spacing: 0.15em;
+          font-size: 17px;
+          border: none;
           &.read {
             background-color: $read;
           }
@@ -71,8 +61,34 @@
           &.buy {
             background-color: $buy;
           }
+
+          option {
+            &.read {
+              background-color: $read;
+            }
+            &.watch {
+              background-color: $watch;
+            }
+            &.eat {
+              background-color: $eat;
+            }
+            &.buy {
+              background-color: $buy;
+            }
+          }
         }
+
+        #delete-button {
+          border: none;
+          font-size: 15px;
+          background-color: $background;
+          margin-left: 3px;
+          color: #16bba3;
+        }
+
       }
+
+
 
     }
   }
