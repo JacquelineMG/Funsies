@@ -47,7 +47,7 @@ router.get('/:category', (req, res) => {
   }
 });
 
-// Add new item ** need to add an event listener **
+// Add new item
 router.post('/', (req, res) => {
   if (!req.body.text) {
     res.status(400).json({ error: 'invalid request: no data in POST body' });
@@ -55,13 +55,6 @@ router.post('/', (req, res) => {
   }
   const newItem = req.body.text;
   console.log("Item:", newItem);
-
-  const categories = {
-    "To Watch": 1,
-    "To Read": 2,
-    "To Eat": 3,
-    "To Buy": 4
-  };
 
   return getCatId(newItem)
     .then(async(category) => {
@@ -83,17 +76,16 @@ router.post('/', (req, res) => {
     });
 });
 
+// Edit an item
+router.put('', (req, res) => {
+
+});
 
 
 module.exports = router;
 
 /*
 
-// Edit an item
-router.post('/:id', (req, res) => {
-  const itemId = req.params.id;
-
-});
 
 //Delete an item
 router.post('/:id/delete', (req, res) => {

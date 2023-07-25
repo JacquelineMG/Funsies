@@ -61,7 +61,7 @@ const addNewItem = async(categoryId, title) => {
 };
 
 // edit item category
-const editItemCategory = (categoryId, itemId) => {
+const editItemCategory = async(categoryId, itemId) => {
   let queryString = `
   UPDATE items SET `;
   const queryParams = [];
