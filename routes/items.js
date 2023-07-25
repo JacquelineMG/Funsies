@@ -76,13 +76,12 @@ router.post('/', (req, res) => {
     });
 });
 
-// Edit an item
+// Edit an item and is_done status
 router.put('/:id', (req, res) => {
-  const id = req.params.id;
   const itemId = req.body.itemId;
   const categoryId = req.body.categoryId;
-  console.log(itemId, categoryId);
-  dataHelpers.editItemCategory(categoryId, id)
+  const status = req.body.is_done;
+  dataHelpers.editItemCategory(categoryId, itemId, status)
     .then((updatedItem) => {
       if (updatedItem) {
         res.json(updatedItem);
@@ -95,8 +94,6 @@ router.put('/:id', (req, res) => {
       res.status(500);
     });
 });
-
-
 
 module.exports = router;
 

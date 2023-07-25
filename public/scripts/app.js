@@ -117,6 +117,7 @@ $(document).ready(function() {
     }
 
     checkBox.on("click", function() {
+
       if (!funsie.is_done) {
         funsie.is_done = true;
         $(checkBoxLabel).addClass("done");
@@ -124,6 +125,24 @@ $(document).ready(function() {
         funsie.is_done = false;
         $(checkBoxLabel).removeClass("done");
       }
+      
+      const newStatus = funsie.is_done;
+      // send AJAX request to update completion status
+      $.ajax({
+        type: 'PUT',
+        url: `http://localhost:8080/api/items/${funsie.id}`,
+        data: {
+          is_done: newStatus,
+          itemId: funsie.id,
+          categoryId: funsie.category_id
+        },
+        success: function(data) {
+          console.log('data', data);
+        },
+        error: function() {
+          console.log(error);
+        }
+      });
       renderPage();
     });
 

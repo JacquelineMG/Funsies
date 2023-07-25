@@ -60,8 +60,8 @@ const addNewItem = async(categoryId, title) => {
     });
 };
 
-// edit item category
-const editItemCategory = (categoryId, itemId) => {
+// edit item category and completion
+const editItemCategory = (categoryId, itemId, status) => {
   let queryString = `
   UPDATE items
   SET`;
@@ -69,7 +69,17 @@ const editItemCategory = (categoryId, itemId) => {
 
   if (categoryId) {
     queryParams.push(categoryId);
-    queryString += ` category_id = $${queryParams.length}`;
+    queryString += ` category_id = $${queryParams.length},`;
+  }
+
+  if (status) {
+    queryParams.push(status);
+    queryString += ` is_done = $${queryParams.length},`;
+  }
+
+  // remove comma if either categoryId or status is truthy
+  if (categoryId || status) {
+    queryString = queryString.slice(0, -1);
   }
 
   queryParams.push(itemId);
