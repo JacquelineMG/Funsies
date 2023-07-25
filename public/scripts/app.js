@@ -90,9 +90,23 @@ $(document).ready(function() {
 
     // Dynamically change text / checkbox style based off completion status
     const checkBox = $funsie.find("input");
-    const doneStyle = $funsie.find("label");
+    const checkBoxLabel = $funsie.find("label");
+
+    if (funsie.is_done) {
+      $(checkBoxLabel).addClass("done");
+    } else {
+      $(checkBoxLabel).removeClass("done");
+    }
+
+
     checkBox.on("click", function() {
-      $(doneStyle).toggleClass("done");
+      if (!funsie.is_done) {
+        funsie.is_done = true;
+        $(checkBoxLabel).toggleClass("done");
+      } else {
+        funsie.is_done = false;
+        $(checkBoxLabel).toggleClass("done");
+      }
     });
 
     return $funsie;
