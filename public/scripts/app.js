@@ -137,7 +137,6 @@ $(document).ready(function() {
       // Save default to apply different filters
       if (!allFunsies) {
         allFunsies = data;
-        filteredFunsies = data;
       }
 
       renderFunsies(data);
