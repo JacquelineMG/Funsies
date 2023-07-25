@@ -168,7 +168,14 @@ $(document).ready(function() {
   // FILTERS
   $('#show-completed').on('change', function() {
     showCompleted = !showCompleted;
-    renderFunsies(filteredFunsies);
+
+    // Check which page you are on & render appropriately
+    const h2 = $('h2').html();
+    if (h2 === '🍭 ALL') {
+      renderFunsies(allFunsies);
+    } else {
+      renderFunsies(filteredFunsies);
+    }
   });
 
   $('#nav-watch').on('click', function(event) {
