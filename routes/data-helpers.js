@@ -63,7 +63,7 @@ const addNewItem = async(categoryId, title) => {
 // edit item category
 const editItemCategory = (categoryId, itemId) => {
   let queryString = `
-  UPDATE items 
+  UPDATE items
   SET`;
   const queryParams = [];
 
@@ -86,26 +86,26 @@ const editItemCategory = (categoryId, itemId) => {
 };
 
 // delete item from db
-const deleteTask = (itemId, db) => {
-  let queryString = `
-  DELETE FROM items
-  WHERE id = $1;
-  `;
-  const queryParams = [itemId];
-  return db
-    .query(queryString, queryParams)
-    .then((data) => {
-      data.rows[0];
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-};
+// const deleteTask = (itemId, db) => {
+//   let queryString = `
+//   DELETE FROM items
+//   WHERE id = $1;
+//   `;
+//   const queryParams = [itemId];
+//   return db
+//     .query(queryString, queryParams)
+//     .then((data) => {
+//       data.rows[0];
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     });
+// };
 
 module.exports = {
   getAllItems,
   getListByCategory,
   addNewItem,
   editItemCategory,
-  deleteTask
+  // deleteTask
 };
