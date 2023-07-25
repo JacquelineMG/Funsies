@@ -98,7 +98,6 @@ $(document).ready(function() {
       $(checkBoxLabel).removeClass("done");
     }
 
-
     checkBox.on("click", function() {
       if (!funsie.is_done) {
         funsie.is_done = true;
