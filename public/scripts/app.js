@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable indent */
 /* eslint-disable no-undef */
 
@@ -46,6 +47,16 @@ $(document).ready(function() {
 
     const sortedFunsies = funsies.sort(compareFn);
     return sortedFunsies;
+  };
+
+  /** Check which page you are on & re-render appropriately */
+  const reRenderPage = function() {
+    const h2 = $('h2').html();
+    if (h2 === '🍭 ALL') {
+      renderFunsies(allFunsies);
+    } else {
+      renderFunsies(filteredFunsies);
+    }
   };
 
   /**
@@ -106,6 +117,7 @@ $(document).ready(function() {
         funsie.is_done = false;
         $(checkBoxLabel).removeClass("done");
       }
+      reRenderPage();
     });
 
     return $funsie;
@@ -180,14 +192,7 @@ $(document).ready(function() {
   // FILTERS
   $('#show-completed').on('change', function() {
     showCompleted = !showCompleted;
-
-    // Check which page you are on & render appropriately
-    const h2 = $('h2').html();
-    if (h2 === '🍭 ALL') {
-      renderFunsies(allFunsies);
-    } else {
-      renderFunsies(filteredFunsies);
-    }
+    reRenderPage();
   });
 
   $('#nav-watch').on('click', function(event) {
@@ -195,7 +200,7 @@ $(document).ready(function() {
     $('h2').empty().append('📺 WATCH');
 
     filteredFunsies = filterByCategory(allFunsies, 1);
-    renderFunsies(filteredFunsies);
+    reRenderPage();
   });
 
   $('#nav-read').on('click', function(event) {
@@ -203,7 +208,7 @@ $(document).ready(function() {
     $('h2').empty().append('📖 READ');
 
     filteredFunsies = filterByCategory(allFunsies, 2);
-    renderFunsies(filteredFunsies);
+    reRenderPage();
   });
 
   $('#nav-eat').on('click', function(event) {
@@ -211,7 +216,7 @@ $(document).ready(function() {
     $('h2').empty().append('🍽️ EAT');
 
     filteredFunsies = filterByCategory(allFunsies, 3);
-    renderFunsies(filteredFunsies);
+    reRenderPage();
   });
 
   $('#nav-buy').on('click', function(event) {
@@ -219,14 +224,14 @@ $(document).ready(function() {
     $('h2').empty().append('💰 BUY');
 
     filteredFunsies = filterByCategory(allFunsies, 4);
-    renderFunsies(filteredFunsies);
+    reRenderPage();
   });
 
   $('#nav-all').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('🍭 ALL');
 
-    renderFunsies(allFunsies);
+    reRenderPage();
   });
 
   // Add new funsie to DB
