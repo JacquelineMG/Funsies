@@ -160,11 +160,9 @@ $(document).ready(function() {
       url: 'http://localhost:8080/api/items'
     }).then(function(data) {
       // Save default to apply different filters
-      if (!allFunsies) {
-        allFunsies = data;
-      }
+      allFunsies = data;
 
-      renderFunsies(data);
+      reRenderPage();
     });
   };
 
