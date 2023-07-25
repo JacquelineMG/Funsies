@@ -56,42 +56,20 @@ $(document).ready(function() {
         <input type="checkbox" id="${funsie.id}-checkbox">
         <label for="${funsie.id}-checkbox">${funsie.title}</label>
       </span>
-      <select name="categories" data-catergory-id=${funsie.id} class="${funsie.id}-categories">
+      <select name="categories[${funsie.id}]" data-catergory-id=${funsie.id} id="${funsie.id}-categories">
       `;
 
-    switch (funsie.category_id) {
-      case 1:
-        element += `
-          <option value="watch" class="watch" selected>📺 WATCH</option>
-          <option value="read" class="read">📖 READ</option>
-          <option value="eat" class="eat">🍽️ EAT</option>
-          <option value="buy" class="buy">💰 BUY</option>
-          `;
-        break;
-      case 2:
-        element += `
-          <option value="watch" class="watch">📺 WATCH</option>
-          <option value="read" class="read" selected>📖 READ</option>
-          <option value="eat" class="eat">🍽️ EAT</option>
-          <option value="buy" class="buy">💰 BUY</option>
-          `;
-        break;
-      case 3:
-        element += `
-          <option value="watch" class="watch">📺 WATCH</option>
-          <option value="read" class="read">📖 READ</option>
-          <option value="eat" class="eat" selected>🍽️ EAT</option>
-          <option value="buy" class="buy">💰 BUY</option>
-          `;
-        break;
-      case 4:
-        element += `
-          <option value="watch" class="watch">📺 WATCH</option>
-          <option value="read" class="read">📖 READ</option>
-          <option value="eat" class="eat">🍽️ EAT</option>
-          <option value="buy" class="buy" selected>💰 BUY</option>
-          `;
-    }
+    const categories = {
+      watch: "📺 WATCH",
+      read: "📖 READ",
+      eat: "🍽️ EAT",
+      buy: "💰 BUY"
+    };
+
+    console.log({funsie})
+    const categoriesEntries = Object.entries(categories)
+    const categoriesOpt = categoriesEntries.map(([key, value], index) => (`<option value="${index + 1}" class="${key}" ${funsie.category_id === index + 1? "selected" : ""}>${value}</option>`));
+    element += categoriesOpt.join("\n")
 
     element += `
       </select>
@@ -99,6 +77,20 @@ $(document).ready(function() {
       `;
 
     const $funsie = $(element);
+    const selector = $funsie.find("select")
+    selector.addClass(categoriesEntries[selector.val() - 1][0]);
+    selector.on("change", function(event) {
+      $(this).removeClass();
+      $(this).addClass(categoriesEntries[event.target.value - 1][0]);
+    })
+
+    const checkBox = $funsie.find("input")
+    const doneStyle = $funsie.find("label");
+    checkBox.on("click", function(event) {
+      $(doneStyle).toggleClass("done");
+    } )
+
+
     return $funsie;
   };
 
@@ -194,22 +186,6 @@ $(document).ready(function() {
 
     renderFunsies(allFunsies);
   });
-
-  // Change background colour on drop down box to match selected value's colour
-  // Won't work without ids on drop down boxes, so probably not a long-term solution
-  for (let i = 1; i < 100; i++) {
-    let count = i;
-    let categories = `${count}-categories`;
-    const category = ($(`#${categories}`).val());
-    $(`#${categories}`).removeClass().addClass(`colour${category}`);
-
-    $(`#${categories}`).on("change", function() {
-      cat = ($(`#${categories}`).val());
-      console.log(cat);
-
-      $(`#${categories}`).removeClass().addClass(`colour${cat}`);
-    });
-  }
 
   // Add new funsie to DB
   $('#new-funsie-form').on('submit', function(event) {
