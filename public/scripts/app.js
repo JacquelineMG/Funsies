@@ -79,6 +79,7 @@ $(document).ready(function() {
       </fieldset>
       `;
 
+    // Dynamically change select backgrounds based off of category change
     const $funsie = $(element);
     const selector = $funsie.find("select");
     selector.addClass(categoriesEntries[selector.val() - 1][0]);
@@ -87,6 +88,7 @@ $(document).ready(function() {
       $(this).addClass(categoriesEntries[event.target.value - 1][0]);
     });
 
+    // Dynamically change text / checkbox style based off completion status
     const checkBox = $funsie.find("input");
     const doneStyle = $funsie.find("label");
     checkBox.on("click", function() {
