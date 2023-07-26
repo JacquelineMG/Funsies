@@ -100,7 +100,7 @@ router.post('/:id/delete', (req, res) => {
   const itemId = req.params.id;
   dataHelpers.deleteTask(itemId)
     .then((data) => {
-      console.log(data)
+      console.log("Item Successfully Deleted")
     })
     .catch((err) => {
       console.log(err);
