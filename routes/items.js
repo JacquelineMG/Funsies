@@ -101,10 +101,11 @@ router.post('/:id/delete', (req, res) => {
   dataHelpers.deleteTask(itemId)
     .then((data) => {
       console.log("Item Successfully Deleted")
+      res.status(200).send("done")
     })
     .catch((err) => {
       console.log(err);
-      res.status(500);
+      res.status(500).send(err);
     });
 });
 
