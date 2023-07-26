@@ -124,7 +124,7 @@ $(document).ready(function() {
         $(this).removeClass();
         $(this).addClass(categoriesEntries[event.target.value - 1][0]);
       } else {
-        $(this).hide();
+        $funsie.hide();
       }
     });
 
