@@ -5,7 +5,6 @@
 $(document).ready(function() {
   let allFunsies;
   let filteredFunsies;
-  let currentPage;
 
   // Set default show completed toggle to true
   let showCompleted = true;
@@ -116,14 +115,16 @@ $(document).ready(function() {
     const $funsie = $(element);
 
 
-    // Dynamically change select backgrounds based off of category change
+    // Dynamically change select backgrounds based off of category change ('all' page only)
     const selector = $funsie.find("select");
     selector.addClass(categoriesEntries[selector.val() - 1][0]);
     selector.on("change", function(event) {
       const h2 = $('h2').html();
-      if (currentPage !== h2 || h2 === '🍭 ALL') {
+      if (h2 === '🍭 ALL') {
         $(this).removeClass();
         $(this).addClass(categoriesEntries[event.target.value - 1][0]);
+      } else {
+        $funsie.hide();
       }
     });
 
@@ -198,8 +199,6 @@ $(document).ready(function() {
       const $funsie = createFunsieElement(funsie);
       $('#funsies-container').append($funsie);
     }
-
-    currentPage = $('h2').html();
   };
 
   /** Load funsies after successful AJAX request */
@@ -319,7 +318,6 @@ $(document).ready(function() {
   addLiveListener(document, "select", "change", (event) => {
     const itemId = event.target.getAttribute("data-category-id");
     const categoryId =  event.target.value;
-    console.log('categoryId:', categoryId, 'itemId:', itemId);
 
     $.ajax({
       type: 'PUT',
