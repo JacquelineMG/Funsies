@@ -95,16 +95,22 @@ router.put('/:id', (req, res) => {
     });
 });
 
-module.exports = router;
-
-/*
-
-
 //Delete an item
 router.post('/:id/delete', (req, res) => {
   const itemId = req.params.id;
-
+  dataHelpers.deleteTask(itemId)
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500);
+    });
 });
+
+module.exports = router;
+
+/*
 
 return router;
 

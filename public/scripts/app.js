@@ -71,9 +71,10 @@ $(document).ready(function() {
         <input title="Checkoff Funsie" type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>
         <label for="${funsie.id}-checkbox" ${funsie.is_done ? 'class="done"' : ''}>${funsie.title}</label>
       </span>
-      <div id="right-side">
+      <div id="right-side" data-category-id=${funsie.id}>
       <select name="categories[${funsie.id}]" data-category-id=${funsie.id} id="${funsie.id}-categories">
       `;
+
 
     const categories = {
       watch: "📺 WATCH",
@@ -89,22 +90,27 @@ $(document).ready(function() {
     element += `
       </select>
       <span>
-      <form method="POST" action="/api/items/:id/delete" id="delete-funsie-form">
-      <button title="Delete Funsie" id="delete-button" type="submit"><i class="fa-regular fa-circle-xmark"></i></i></button>
+      <form id="delete-funsie-form">
+      <button title="Delete Funsie" id="delete-button" type="submit"><i data-category-id="${funsie.id}" class="fa-regular fa-circle-xmark"></i></button>
       </form>
       </span>
       </div>
       </fieldset>
       `;
 
-    // Dynamically change select backgrounds based off of category change
     const $funsie = $(element);
+
+
+    // Dynamically change select backgrounds based off of category change
+
     const selector = $funsie.find("select");
     selector.addClass(categoriesEntries[selector.val() - 1][0]);
     selector.on("change", function(event) {
       $(this).removeClass();
       $(this).addClass(categoriesEntries[event.target.value - 1][0]);
     });
+
+
 
     // Dynamically change text / checkbox style based off completion status
     const checkBox = $funsie.find("input");
@@ -125,7 +131,7 @@ $(document).ready(function() {
         funsie.is_done = false;
         $(checkBoxLabel).removeClass("done");
       }
-      
+
       const newStatus = funsie.is_done;
       // send AJAX request to update completion status
       $.ajax({
@@ -322,7 +328,29 @@ $(document).ready(function() {
         alert('error!');
       }
     });
-
   });
+
+
+  // listen for delete click and carry out post resquest to delete item from database
+
+  addLiveListener(document, "button", "click", (event) => {
+    const itemId = event.target.getAttribute("data-category-id");
+
+    $.ajax({
+      type: 'POST',
+      url: `http://localhost:8080/api/items/${itemId}/delete`,
+      data: {
+        itemId
+      },
+      dataType: 'json',
+      success: function() {
+        loadFunsies();
+      },
+      error: function() {
+        console.log('error!');
+      }
+    });
+  });
+
 
 });

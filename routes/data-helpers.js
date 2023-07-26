@@ -96,26 +96,27 @@ const editItemCategory = (categoryId, itemId, status) => {
 };
 
 // delete item from db
-// const deleteTask = (itemId, db) => {
-//   let queryString = `
-//   DELETE FROM items
-//   WHERE id = $1;
-//   `;
-//   const queryParams = [itemId];
-//   return db
-//     .query(queryString, queryParams)
-//     .then((data) => {
-//       data.rows[0];
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
+const deleteTask = (itemId) => {
+  let queryString = `
+  DELETE FROM items
+  WHERE id = $1
+  RETURNING *;
+  `;
+  const queryParams = [itemId];
+  return db
+    .query(queryString, queryParams)
+    .then((data) => {
+      data.rows[0];
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 module.exports = {
   getAllItems,
   getListByCategory,
   addNewItem,
   editItemCategory,
-  // deleteTask
+  deleteTask
 };
