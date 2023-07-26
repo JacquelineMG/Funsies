@@ -85,7 +85,7 @@ $(document).ready(function() {
         <input title="Check Off Funsie" type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>
         <label for="${funsie.id}-checkbox" ${funsie.is_done ? 'class="done"' : ''}>${funsie.title}</label>
       </span>
-      <div id="right-side" data-category-id=${funsie.id}>
+      <div class="right-side" data-category-id=${funsie.id}>
       <select name="categories[${funsie.id}]" data-category-id=${funsie.id} id="${funsie.id}-categories">
       `;
 
@@ -105,7 +105,7 @@ $(document).ready(function() {
       </select>
       <span>
       <form id="delete-funsie-form">
-      <button title="Delete Funsie" id="delete-button" type="submit"><i data-category-id="${funsie.id}" class="fa-regular fa-circle-xmark"></i></button>
+      <button title="Delete Funsie" class="delete-button" type="submit"><i data-category-id="${funsie.id}" class="fa-regular fa-circle-xmark"></i></button>
       </form>
       </span>
       </div>
@@ -338,7 +338,9 @@ $(document).ready(function() {
 
   // listen for delete click and carry out post resquest to delete item from database
 
-  addLiveListener(document, "button", "click", (event) => {
+  const section = document.getElementById("funsie-list");
+  
+  addLiveListener(section, "button", "click", (event) => {
     const itemId = event.target.getAttribute("data-category-id");
 
     $.ajax({
