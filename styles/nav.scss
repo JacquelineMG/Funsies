@@ -11,12 +11,13 @@ nav {
   align-items: center;
   position: fixed;
   top: 0;
+  z-index: 1;
 }
 
 #logo {
   display: inline-block;
   margin-left: 3em;
-  
+
   img {
     width: 300px;
   }
