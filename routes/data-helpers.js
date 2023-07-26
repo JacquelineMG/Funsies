@@ -63,7 +63,7 @@ const addNewItem = async(categoryId, title) => {
 // edit item category and completion
 const editItemCategory = (categoryId, itemId, status) => {
   let queryString = `
-  UPDATE items 
+  UPDATE items
   SET`;
   const queryParams = [];
 
@@ -96,10 +96,11 @@ const editItemCategory = (categoryId, itemId, status) => {
 };
 
 // delete item from db
-const deleteTask = (itemId, db) => {
+const deleteTask = (itemId) => {
   let queryString = `
   DELETE FROM items
-  WHERE id = $1;
+  WHERE id = $1
+  RETURNING *;
   `;
   const queryParams = [itemId];
   return db

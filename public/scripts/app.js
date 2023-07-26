@@ -82,11 +82,13 @@ $(document).ready(function() {
     let element = `
       <fieldset id="${funsie.id}">
       <span>
-        <input type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>
+        <input title="Checkoff Funsie" type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>
         <label for="${funsie.id}-checkbox" ${funsie.is_done ? 'class="done"' : ''}>${funsie.title}</label>
       </span>
+      <div id="right-side" data-category-id=${funsie.id}>
       <select name="categories[${funsie.id}]" data-category-id=${funsie.id} id="${funsie.id}-categories">
       `;
+
 
     const categories = {
       watch: "📺 WATCH",
@@ -101,17 +103,28 @@ $(document).ready(function() {
 
     element += `
       </select>
+      <span>
+      <form id="delete-funsie-form">
+      <button title="Delete Funsie" id="delete-button" type="submit"><i data-category-id="${funsie.id}" class="fa-regular fa-circle-xmark"></i></button>
+      </form>
+      </span>
+      </div>
       </fieldset>
       `;
 
-    // Dynamically change select backgrounds based off of category change
     const $funsie = $(element);
+
+
+    // Dynamically change select backgrounds based off of category change
+
     const selector = $funsie.find("select");
     selector.addClass(categoriesEntries[selector.val() - 1][0]);
     selector.on("change", function(event) {
       $(this).removeClass();
       $(this).addClass(categoriesEntries[event.target.value - 1][0]);
     });
+
+
 
     // Dynamically change text / checkbox style based off completion status
     const checkBox = $funsie.find("input");
@@ -320,7 +333,31 @@ $(document).ready(function() {
         console.log(error);
       }
     });
-
   });
 
+
+  // listen for delete click and carry out post resquest to delete item from database
+
+  addLiveListener(document, "button", "click", (event) => {
+    const itemId = event.target.getAttribute("data-category-id");
+
+    $.ajax({
+      type: 'POST',
+      url: `http://localhost:8080/api/items/${itemId}/delete`,
+      data: {
+        itemId
+      },
+      dataType: 'json',
+      success: function() {
+        loadFunsies();
+      },
+      error: function() {
+        console.log('error!');
+      }
+    });
+    renderPage();
+    loadFunsies();
+
+  });
+  
 });
