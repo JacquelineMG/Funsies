@@ -122,8 +122,6 @@ $(document).ready(function() {
     selector.on("change", function(event) {
       const h2 = $('h2').html();
       if (currentPage !== h2 || h2 === '🍭 ALL') {
-        console.log('current page:', currentPage);
-        console.log('h2:', h2);
         $(this).removeClass();
         $(this).addClass(categoriesEntries[event.target.value - 1][0]);
       }
