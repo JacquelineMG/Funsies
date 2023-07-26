@@ -82,7 +82,7 @@ $(document).ready(function() {
     let element = `
       <fieldset id="${funsie.id}">
       <span>
-        <input title="Checkoff Funsie" type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>
+        <input title="Check Off Funsie" type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>
         <label for="${funsie.id}-checkbox" ${funsie.is_done ? 'class="done"' : ''}>${funsie.title}</label>
       </span>
       <div id="right-side" data-category-id=${funsie.id}>
@@ -359,5 +359,5 @@ $(document).ready(function() {
     loadFunsies();
 
   });
-  
+
 });
