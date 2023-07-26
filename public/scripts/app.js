@@ -53,10 +53,24 @@ $(document).ready(function() {
   const renderPage = function() {
     const h2 = $('h2').html();
     if (h2 === '🍭 ALL') {
-      renderFunsies(allFunsies);
-    } else {
-      renderFunsies(filteredFunsies);
+      return renderFunsies(allFunsies);
     }
+
+    switch (h2) {
+      case '📺 WATCH':
+        filteredFunsies = filterByCategory(allFunsies, 1);
+        break;
+      case '📖 READ':
+        filteredFunsies = filterByCategory(allFunsies, 2);
+        break;
+      case '🍽️ EAT':
+        filteredFunsies = filterByCategory(allFunsies, 3);
+        break;
+      case '💰 BUY':
+        filteredFunsies = filterByCategory(allFunsies, 4);
+    }
+
+    renderFunsies(filteredFunsies);
   };
 
   /**
@@ -228,39 +242,30 @@ $(document).ready(function() {
   $('#nav-watch').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('📺 WATCH');
-
-    filteredFunsies = filterByCategory(allFunsies, 1);
     renderPage();
   });
 
   $('#nav-read').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('📖 READ');
-
-    filteredFunsies = filterByCategory(allFunsies, 2);
     renderPage();
   });
 
   $('#nav-eat').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('🍽️ EAT');
-
-    filteredFunsies = filterByCategory(allFunsies, 3);
     renderPage();
   });
 
   $('#nav-buy').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('💰 BUY');
-
-    filteredFunsies = filterByCategory(allFunsies, 4);
     renderPage();
   });
 
   $('#nav-all').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('🍭 ALL');
-
     renderPage();
   });
 
@@ -324,8 +329,8 @@ $(document).ready(function() {
       success: function() {
         loadFunsies();
       },
-      error: function() {
-        alert('error!');
+      error: function(error) {
+        console.log(error);
       }
     });
   });
@@ -354,6 +359,5 @@ $(document).ready(function() {
     loadFunsies();
 
   });
-
-
+  
 });
