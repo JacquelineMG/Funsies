@@ -104,9 +104,12 @@ $(document).ready(function() {
     element += `
       </select>
       <span>
-      <form id="delete-funsie-form">
-      <button title="Delete Funsie" class="delete-button" type="submit"><i data-category-id="${funsie.id}" class="fa-regular fa-circle-xmark"></i></button>
-      </form>
+        <form id="delete-funsie-form">
+          <input type="hidden" value="${funsie.id}" name="categoryId" />
+          <button title="Delete Funsie" class="delete-button" type="submit">
+          <i data-category-id="${funsie.id}" class="fa-regular fa-circle-xmark"></i>
+          </button>
+        </form>
       </span>
       </div>
       </fieldset>
@@ -319,6 +322,8 @@ $(document).ready(function() {
     const itemId = event.target.getAttribute("data-category-id");
     const categoryId =  event.target.value;
 
+    console.log("change------------")
+
     $.ajax({
       type: 'PUT',
       url: `http://localhost:8080/api/items/${itemId}`,
@@ -341,26 +346,17 @@ $(document).ready(function() {
 
   const section = document.getElementById("funsie-list");
 
-  addLiveListener(section, "button", "click", (event) => {
-    const itemId = event.target.getAttribute("data-category-id");
+  addLiveListener(section, "form", "submit", (event) => {
+    event.preventDefault()
+    const itemId = event.target.categoryId.value;
 
     $.ajax({
       type: 'POST',
       url: `http://localhost:8080/api/items/${itemId}/delete`,
-      data: {
-        itemId
-      },
-      dataType: 'json',
-      success: function() {
-        loadFunsies();
-      },
-      error: function() {
-        console.log('error!');
+      success: () => {
+        loadFunsies()
       }
-    });
-    renderPage();
-    loadFunsies();
-
+    })
   });
 
 });
