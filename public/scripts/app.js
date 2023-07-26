@@ -53,10 +53,24 @@ $(document).ready(function() {
   const renderPage = function() {
     const h2 = $('h2').html();
     if (h2 === '🍭 ALL') {
-      renderFunsies(allFunsies);
-    } else {
-      renderFunsies(filteredFunsies);
+      return renderFunsies(allFunsies);
     }
+
+    switch (h2) {
+      case '📺 WATCH':
+        filteredFunsies = filterByCategory(allFunsies, 1);
+        break;
+      case '📖 READ':
+        filteredFunsies = filterByCategory(allFunsies, 2);
+        break;
+      case '🍽️ EAT':
+        filteredFunsies = filterByCategory(allFunsies, 3);
+        break;
+      case '💰 BUY':
+        filteredFunsies = filterByCategory(allFunsies, 4);
+    }
+
+    renderFunsies(filteredFunsies);
   };
 
   /**
@@ -118,7 +132,7 @@ $(document).ready(function() {
         funsie.is_done = false;
         $(checkBoxLabel).removeClass("done");
       }
-      
+
       const newStatus = funsie.is_done;
       // send AJAX request to update completion status
       $.ajax({
@@ -215,39 +229,30 @@ $(document).ready(function() {
   $('#nav-watch').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('📺 WATCH');
-
-    filteredFunsies = filterByCategory(allFunsies, 1);
     renderPage();
   });
 
   $('#nav-read').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('📖 READ');
-
-    filteredFunsies = filterByCategory(allFunsies, 2);
     renderPage();
   });
 
   $('#nav-eat').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('🍽️ EAT');
-
-    filteredFunsies = filterByCategory(allFunsies, 3);
     renderPage();
   });
 
   $('#nav-buy').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('💰 BUY');
-
-    filteredFunsies = filterByCategory(allFunsies, 4);
     renderPage();
   });
 
   $('#nav-all').on('click', function(event) {
     event.preventDefault();
     $('h2').empty().append('🍭 ALL');
-
     renderPage();
   });
 
@@ -275,9 +280,9 @@ $(document).ready(function() {
     $('#funsie-name').val('');
   });
 
-  
+
   // Edit funsie category
-  
+
     /**
    * Adds a istener for specific tags for elements that may not yet exist.
    * @param scope a reference to an element to look for elements in (i.e. document)
@@ -299,7 +304,7 @@ $(document).ready(function() {
     const itemId = event.target.getAttribute("data-category-id");
     const categoryId =  event.target.value;
     console.log('categoryId:', categoryId, 'itemId:', itemId);
-    
+
     $.ajax({
       type: 'PUT',
       url: `http://localhost:8080/api/items/${itemId}`,
@@ -311,11 +316,11 @@ $(document).ready(function() {
       success: function() {
         loadFunsies();
       },
-      error: function() {
-        alert('error!');
+      error: function(error) {
+        console.log(error);
       }
     });
 
   });
-  
+
 });
