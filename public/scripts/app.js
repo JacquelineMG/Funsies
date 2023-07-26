@@ -5,6 +5,7 @@
 $(document).ready(function() {
   let allFunsies;
   let filteredFunsies;
+  let currentPage;
 
   // Set default show completed toggle to true
   let showCompleted = true;
@@ -116,15 +117,17 @@ $(document).ready(function() {
 
 
     // Dynamically change select backgrounds based off of category change
-
     const selector = $funsie.find("select");
     selector.addClass(categoriesEntries[selector.val() - 1][0]);
     selector.on("change", function(event) {
-      $(this).removeClass();
-      $(this).addClass(categoriesEntries[event.target.value - 1][0]);
+      const h2 = $('h2').html();
+      if (currentPage !== h2 || h2 === '🍭 ALL') {
+        console.log('current page:', currentPage);
+        console.log('h2:', h2);
+        $(this).removeClass();
+        $(this).addClass(categoriesEntries[event.target.value - 1][0]);
+      }
     });
-
-
 
     // Dynamically change text / checkbox style based off completion status
     const checkBox = $funsie.find("input");
@@ -197,6 +200,8 @@ $(document).ready(function() {
       const $funsie = createFunsieElement(funsie);
       $('#funsies-container').append($funsie);
     }
+
+    currentPage = $('h2').html();
   };
 
   /** Load funsies after successful AJAX request */
@@ -336,10 +341,10 @@ $(document).ready(function() {
   });
 
 
-  // listen for delete click and carry out post resquest to delete item from database
+  // listen for delete click and carry out post request to delete item from database
 
   const section = document.getElementById("funsie-list");
-  
+
   addLiveListener(section, "button", "click", (event) => {
     const itemId = event.target.getAttribute("data-category-id");
 
