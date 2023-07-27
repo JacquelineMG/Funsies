@@ -81,8 +81,15 @@ $(document).ready(function() {
   const createFunsieElement = function(funsie) {
     let element = `
       <fieldset id="${funsie.id}">
-      <span>
-        <input title="Check Off Funsie" type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>
+      <span>`
+
+      if (funsie.is_done) {
+        element += `<input title="Uncheck :: ${funsie.title}" type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>`
+      } else {
+        element += `<input title="Check Off :: ${funsie.title}" type="checkbox" id="${funsie.id}-checkbox" ${funsie.is_done ? "checked" : ""}>`
+      }
+
+      element += `
         <label for="${funsie.id}-checkbox" ${funsie.is_done ? 'class="done"' : ''}>${funsie.title}</label>
       </span>
       <div class="right-side" data-category-id=${funsie.id}>
@@ -106,7 +113,7 @@ $(document).ready(function() {
       <span>
         <form id="delete-funsie-form">
           <input type="hidden" value="${funsie.id}" name="categoryId" />
-          <button title="Delete Funsie" class="delete-button" type="submit">
+          <button title="Delete :: ${funsie.title}" class="delete-button" type="submit">
           <i data-category-id="${funsie.id}" class="fa-regular fa-circle-xmark"></i>
           </button>
         </form>
