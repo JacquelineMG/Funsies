@@ -1,16 +1,21 @@
-LHL Node Skeleton
-=========
+# Midterm Project: Funsies
 
-## Project Setup
+Funsies is a smart to-do list, single-page application that employs an OpenAI GPT language model to automatically categorize your funsie into one of these four categories:
 
-The following steps are only for _one_ of the group members to perform.
+- 📺 WATCH
+- 📖 READ
+- 🍽️ EAT
+- 💰 BUY
 
-1. Create your own copy of this repo using the `Use This Template` button, ideally using the name of your project. The repo should be marked Public
-2. Verify that the skeleton code now shows up in your repo on GitHub, you should be automatically redirected
-3. Clone your copy of the repo to your dev machine
-4. Add your team members as collaborators to the project so that they can push to this repo
-5. Let your team members know the repo URL so that they use the same repo (they should _not_ create a copy/fork of this repo since that will add additional workflow complexity to the project)
+🍭 A funsie is a show or movie you want to watch, a book you want to read, a product you’d like to buy, or a restaurant you'd like to try!
 
+## Final Product
+!["'🍭 ALL' view, add funsie form up"](/docs/all-form-up.png)
+!["'🍭 ALL' view, add funsie form down"](/docs/all-form-down.png)
+!["'📺 WATCH' view"](/docs/watch.png)
+!["'📖 READ' view"](/docs/read.png)
+!["'🍽️ EAT' view"](/docs/eat.png)
+!["'💰 BUY' view"](/docs/buy.png)
 
 ## Getting Started
 
