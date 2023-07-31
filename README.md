@@ -58,3 +58,9 @@ A funsie is a show or movie you want to watch, a book you want to read, a produc
 - Node 10.x or above
 - NPM 5.x or above
 - PG 6.x
+- OpenAI 3.3
+- dotenv
+- ejs
+- morgan
+- nodemon
+- sass
