@@ -7,14 +7,25 @@ Funsies is a smart to-do list, single-page application that employs an OpenAI GP
 - 🍽️ EAT
 - 💰 BUY
 
-🍭 A funsie is a show or movie you want to watch, a book you want to read, a product you’d like to buy, or a restaurant you'd like to try!
+A funsie is a show or movie you want to watch, a book you want to read, a product you’d like to buy, or a restaurant you'd like to try! 🍭 
 
 ## Final Product
+#### '🍭 ALL' view, add funsie form up
 !["'🍭 ALL' view, add funsie form up"](/docs/all-form-up.png)
+
+#### '🍭 ALL' view, add funsie form down
 !["'🍭 ALL' view, add funsie form down"](/docs/all-form-down.png)
+
+#### '📺 WATCH' view
 !["'📺 WATCH' view"](/docs/watch.png)
+
+#### '📖 READ' view
 !["'📖 READ' view"](/docs/read.png)
+
+#### '🍽️ EAT' view
 !["'🍽️ EAT' view"](/docs/eat.png)
+
+#### '💰 BUY' view
 !["'💰 BUY' view"](/docs/buy.png)
 
 ## Getting Started
